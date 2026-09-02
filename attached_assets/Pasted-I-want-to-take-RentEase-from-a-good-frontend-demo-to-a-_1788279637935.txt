@@ -1,0 +1,428 @@
+I want to take RentEase from a good frontend demo to a genuinely PREMIUM, PRESENTABLE RENTAL MARKETPLACE PROJECT.
+
+The current design is good, but the catalog is too small. I want RentEase to feel like a real commercial rental platform with a large, visually rich product catalog.
+
+IMPORTANT:
+
+* Do NOT rebuild the project from scratch.
+* Preserve the existing React/Vite architecture.
+* Preserve all existing routes, authentication demo, cart, wishlist, checkout, dashboard, shared context, and existing functionality.
+* Do not remove working features.
+* Improve and expand the existing system.
+
+## 1. MASSIVELY EXPAND THE PRODUCT CATALOG
+
+Create a large realistic catalog with AT LEAST 50 UNIQUE PRODUCTS IN EACH MAJOR CATEGORY.
+
+Target categories:
+
+1. Furniture — 50+
+2. Appliances — 50+
+3. Electronics — 50+
+4. Office — 50+
+5. Bedroom — 50+
+6. Living Room — 50+
+7. Kitchen — 50+
+8. Study / Work From Home — 50+
+
+Target: 400+ realistic rental products overall.
+
+Products should NOT feel like duplicates with only different names.
+
+Create realistic variations such as:
+
+* Different sofa styles
+* Different beds
+* Different wardrobes
+* Different dining tables
+* Different chairs
+* Different refrigerators
+* Different washing machines
+* Different air conditioners
+* Different microwaves
+* Different televisions
+* Different laptops
+* Different monitors
+* Different printers
+* Different office desks
+* Different gaming setups
+* Different kitchen appliances
+* Coffee machines
+* Air fryers
+* Induction cooktops
+* Mixers
+* Water purifiers
+* Study tables
+* Office chairs
+* Bookshelves
+* Mattresses
+* Side tables
+* Lamps
+* Storage units
+* etc.
+
+Make the catalog realistic enough that it looks like a real startup marketplace.
+
+## 2. EVERY PRODUCT MUST HAVE REAL PRODUCT PHOTOGRAPHY
+
+This is VERY IMPORTANT.
+
+Do NOT use:
+
+* Gradient boxes
+* Emoji
+* Generic category icons
+* Blank placeholders
+* Repeated hero images
+* Fake colored rectangles
+
+Every product should have a relevant, high-quality product/lifestyle image.
+
+For example:
+
+Kitchen:
+
+* refrigerators should show refrigerators
+* microwaves should show microwaves
+* air fryers should show air fryers
+* coffee machines should show coffee machines
+
+Electronics:
+
+* laptops should show laptops
+* monitors should show monitors
+* TVs should show TVs
+* speakers should show speakers
+
+Furniture:
+
+* sofas should show sofas
+* beds should show beds
+* desks should show desks
+
+The image must visually match the product.
+
+Use stable public image URLs/CDN sources that work reliably in the browser.
+
+If external image URLs fail, implement a graceful local fallback.
+
+DO NOT add a paid image-search dependency.
+
+## 3. PRODUCT DATA SHOULD FEEL REAL
+
+Every product should have:
+
+* id
+* name
+* category
+* subcategory
+* description
+* monthlyPrice
+* originalPrice
+* securityDeposit
+* rating
+* reviewCount
+* city
+* availability
+* badge where appropriate
+* image
+* additional gallery images where practical
+* specifications
+* includedItems
+* rental durations
+* delivery information
+
+Use realistic Indian rental pricing and cities.
+
+Example cities:
+
+* Pune
+* Mumbai
+* Bengaluru
+* Hyderabad
+* Delhi
+* Noida
+* Gurgaon
+* Chennai
+* Kolkata
+* Ahmedabad
+* Jaipur
+* Nagpur
+
+Do not make every product have the same price, rating, city, or badge.
+
+## 4. PRODUCT DETAILS SHOULD FEEL PREMIUM
+
+When a user clicks a product, the Product Details page should feel like a real e-commerce/rental platform.
+
+Include:
+
+* Large product photography
+* Image gallery
+* Product name
+* Rating + review count
+* Location
+* Monthly rental price
+* Original price
+* Savings
+* Security deposit
+* Rental duration selector
+* Quantity selector
+* Availability
+* Delivery information
+* Specifications
+* What's included
+* Rental benefits
+* Add to Cart
+* Rent Now
+* Wishlist
+* Related products
+
+Use the actual product's data and images.
+
+## 5. EXPLORE PAGE SHOULD FEEL LIKE A REAL MARKETPLACE
+
+Improve `/products` so it can comfortably handle 400+ products.
+
+Include:
+
+* Search
+* Category filters
+* Subcategory filters
+* Price range
+* Rating filter
+* City/location filter
+* Availability filter
+* Sort by Recommended
+* Price low to high
+* Price high to low
+* Rating
+* Newest
+* Popular
+* Result count
+
+Keep filters responsive and polished.
+
+Do NOT load hundreds of huge images simultaneously if that hurts performance.
+
+Use:
+
+* lazy loading
+* appropriate image sizing
+* efficient rendering
+* pagination or "Load More" if necessary
+
+The page should remain fast.
+
+## 6. HOMEPAGE MUST LOOK LIKE A PREMIUM STARTUP WEBSITE
+
+The homepage should showcase the large catalog.
+
+Create sections such as:
+
+Hero:
+"Rent Better. Live Better."
+
+Featured Rentals
+
+Shop by Category
+
+Popular Furniture
+
+Trending Appliances
+
+Latest Electronics
+
+Work From Home
+
+Bedroom Essentials
+
+Kitchen Essentials
+
+How RentEase Works
+
+Why RentEase
+
+Cities We Serve
+
+Customer Testimonials
+
+Frequently Asked Questions
+
+Final CTA
+
+Each major category section should contain attractive product cards with REAL IMAGES.
+
+Do not make every section visually identical. Give each section a polished editorial layout while keeping the same design system.
+
+## 7. CATEGORY PAGES / FILTERING
+
+Make sure category navigation actually works.
+
+For example:
+
+/products?category=kitchen
+/products?category=appliances
+/products?category=electronics
+/products?category=furniture
+/products?category=office
+/products?category=bedroom
+/products?category=living-room
+
+The correct products should appear for each category.
+
+## 8. PREMIUM VISUAL DESIGN
+
+The website should look like a real startup/product that I can confidently show during:
+
+* college project presentation
+* project viva
+* portfolio
+* internship applications
+* LinkedIn
+* GitHub
+* recruiters
+
+Keep the current RentEase identity:
+
+* Light blue
+* White
+* Slate/navy
+* Premium typography
+* Plus Jakarta Sans
+* Clean cards
+* Large high-quality imagery
+* Subtle shadows
+* Rounded corners
+* Excellent spacing
+* Professional buttons
+* Smooth but restrained animations
+
+Avoid making it look like a generic AI-generated website.
+
+It should feel like a polished Indian rental marketplace startup.
+
+## 9. PRODUCT CARD QUALITY
+
+Every product card should show:
+
+IMAGE
+
+Badge
+
+❤️ Wishlist
+
+Product name
+
+Category
+
+⭐ Rating + reviews
+
+📍 City
+
+₹ monthly rental
+
+Original price / savings where applicable
+
+Availability
+
+View Details
+
+Add to Cart
+
+Cards should have:
+
+* consistent image aspect ratio
+* hover interaction
+* subtle elevation
+* clean typography
+* proper spacing
+
+## 10. IMAGE PERFORMANCE
+
+Because the catalog will contain 400+ products:
+
+* Do not download all full-resolution images at once.
+* Use lazy loading.
+* Use optimized image dimensions.
+* Avoid unnecessary duplicate images.
+* Keep the initial homepage fast.
+* Only load images when needed.
+* Make sure broken external images gracefully fall back.
+
+## 11. DO NOT BREAK EXISTING FEATURES
+
+Before finishing, verify:
+
+/
+/products
+/products/:id
+/cart
+/checkout
+/login
+/register
+/dashboard
+/dashboard?tab=wishlist
+
+Test:
+
+Search
+
+Filters
+
+Sorting
+
+Wishlist
+
+Add to cart
+
+Cart quantity
+
+Checkout
+
+Product details
+
+Navigation
+
+Mobile menu
+
+Category links
+
+## 12. FINAL QUALITY CHECK
+
+Run:
+
+npm run build
+
+npm run lint
+
+Restart the Replit workflow.
+
+Check the browser console for application errors.
+
+Check the website at desktop and mobile widths.
+
+Check that images actually render.
+
+Check at least one category containing 50+ products.
+
+Check that different products have different relevant images.
+
+IMPORTANT:
+Do not stop after creating the data structure.
+
+Actually make the UI visually showcase the large catalog.
+
+The final result should look like a REAL PREMIUM RENTAL MARKETPLACE, not a small college demo.
+
+At the end, report:
+
+1. Total number of products created
+2. Number of products per category
+3. How product images are sourced
+4. Files changed
+5. Build/lint status
+6. Routes verified
+7. Any remaining limitations
+
+DO NOT publish the application yet.

@@ -1,0 +1,438 @@
+Continue building the RentEase website, but IMPORTANT: I am using the FREE Replit plan and I do NOT want to use Power mode or any paid image-search/credit-consuming tools.
+
+Do NOT use Replit image search.
+
+Instead, implement the premium website using image URLs from reliable public image CDNs that can be referenced directly in the application, such as Unsplash/Pexels image URLs, OR use existing project assets where appropriate.
+
+Do not ask me to upgrade.
+
+## IMPORTANT
+
+Continue from the existing RentEase project and the work already completed.
+
+Do NOT rebuild from scratch.
+
+Do NOT undo the existing Replit/Vite configuration.
+
+Do NOT use paid tools.
+
+Do NOT use Replit image search.
+
+Do NOT leave placeholder boxes or empty image areas.
+
+I want a COMPLETE premium rental marketplace website.
+
+### Product imagery
+
+Add realistic product photography using direct image URLs in the product data.
+
+Use images that actually correspond to the products.
+
+Examples:
+
+* Modern sofa → modern sofa photograph
+* King bed → bedroom/bed photograph
+* Refrigerator → refrigerator photograph
+* Washing machine → washing machine photograph
+* Air conditioner → AC photograph
+* Television → TV photograph
+* Laptop → laptop photograph
+* Office chair → ergonomic office chair photograph
+* Dining table → dining table photograph
+* Microwave → microwave photograph
+
+Use stable direct image URLs.
+
+Keep all images consistent in aspect ratio and make the cards visually premium.
+
+If an image URL fails, provide a sensible fallback image so the UI never shows a broken image.
+
+Do NOT use Replit's image-search capability.
+
+---
+
+# WEBSITE GOAL
+
+Transform RentEase into a polished commercial rental marketplace.
+
+The website should feel like a real startup product, not a college demo.
+
+Keep the existing light blue / white / navy RentEase design language.
+
+Use:
+
+* Premium typography
+* Large high-quality imagery
+* Clean whitespace
+* Professional cards
+* Subtle shadows
+* Thin borders
+* Sophisticated blue accents
+* Smooth transitions
+* Responsive layouts
+
+Avoid:
+
+* Excessive gradients
+* Excessive glass effects
+* Neon colors
+* Cartoon illustrations
+* Emoji UI
+* Empty placeholders
+* Generic dashboard-template styling
+
+---
+
+# REQUIRED PAGES
+
+Make these pages complete and connected:
+
+1. `/`
+   Premium homepage
+
+2. `/products`
+   Complete Explore marketplace
+
+3. `/products/:id`
+   Complete product details page
+
+4. `/cart`
+   Functional rental cart
+
+5. `/checkout`
+   Rental checkout demonstration
+
+6. `/login`
+   Premium login page
+
+7. `/register`
+   Premium registration page
+
+8. `/dashboard`
+   Premium customer dashboard
+
+---
+
+# HOMEPAGE
+
+Upgrade the homepage with:
+
+### Hero
+
+"Rent Better. Live Better."
+
+Supporting copy about flexible furniture, appliance and electronics rentals.
+
+Include a large realistic lifestyle/rental image.
+
+Add:
+
+* Search
+* Explore Rentals CTA
+* How It Works CTA
+
+### Categories
+
+Large visual cards with images:
+
+Furniture
+Appliances
+Electronics
+Office
+Bedroom
+Living Room
+Kitchen
+
+### Featured Rentals
+
+Show 6–8 products with REAL product photographs.
+
+Cards should contain:
+
+* Product image
+* Wishlist
+* Badge
+* Product name
+* Category
+* Rating
+* Monthly price
+* View Details
+
+### How RentEase Works
+
+1. Choose what you need
+2. Select your rental plan
+3. Get it delivered
+4. Return or renew
+
+### Why RentEase
+
+* Flexible monthly plans
+* Fast delivery
+* Maintenance support
+* No long-term commitment
+* Verified products
+* Easy returns
+
+### Testimonials
+
+Add a polished customer testimonial section.
+
+### Final CTA
+
+"Your next home starts here."
+
+---
+
+# EXPLORE PAGE
+
+Keep the existing `/products` functionality but make it visually premium.
+
+Include:
+
+* Search
+* Category filters
+* Price filters
+* Sorting
+* Product count
+* Product grid
+* Real product images
+* Wishlist
+* Ratings
+* Monthly price
+* Location
+* Availability
+* View Details
+
+Desktop:
+
+Filter sidebar + product grid.
+
+Mobile:
+
+Mobile filter/sort controls.
+
+All controls must actually work.
+
+---
+
+# PRODUCT DETAILS
+
+Implement:
+
+`/products/:id`
+
+Include:
+
+* Large product image
+* Thumbnail images
+* Product gallery
+* Product name
+* Rating
+* Reviews
+* Location
+* Availability
+* Monthly price
+* Security deposit
+* Rental duration
+* Add to Cart
+* Rent Now
+* Wishlist
+
+Then:
+
+* Description
+* Specifications
+* Features
+* What's included
+* Delivery information
+* Rental benefits
+* Reviews
+* Related products
+
+---
+
+# CART
+
+Create a realistic rental cart.
+
+Show:
+
+* Product image
+* Product
+* Monthly price
+* Rental duration
+* Quantity
+* Remove
+* Order summary
+
+Summary:
+
+Monthly rental
+Security deposit
+Delivery
+Taxes
+Total
+
+Button:
+
+Proceed to Checkout
+
+---
+
+# CHECKOUT
+
+Create `/checkout`.
+
+Include:
+
+Delivery address
+Rental duration
+Payment method UI
+Order summary
+
+Payment should be DEMO ONLY.
+
+Do not implement real payment processing.
+
+After confirmation show:
+
+"Your rental is confirmed!"
+
+with rental ID and delivery information.
+
+---
+
+# AUTHENTICATION
+
+Make `/login` and `/register` visually premium.
+
+Use frontend/demo authentication only unless an existing real authentication system already exists.
+
+---
+
+# DASHBOARD
+
+Create a polished customer dashboard.
+
+Include:
+
+Overview
+Active Rentals
+Orders
+Wishlist
+Profile
+Settings
+
+Show:
+
+Active Rentals
+Upcoming Deliveries
+Recent Orders
+Rental status
+
+Use realistic product imagery throughout.
+
+---
+
+# PRODUCT CATALOG
+
+Expand the existing catalog to approximately 20–30 realistic products.
+
+Every product should contain:
+
+id
+name
+category
+subcategory
+description
+image
+monthlyPrice
+originalPrice
+rating
+reviewCount
+city
+badge
+availability
+specifications
+features
+
+Use realistic Indian pricing in ₹.
+
+Examples:
+
+Sofa — ₹1,499/month
+Refrigerator — ₹1,899/month
+Washing Machine — ₹1,299/month
+Laptop — ₹2,499/month
+Office Chair — ₹699/month
+
+Use varied realistic prices.
+
+---
+
+# CONSISTENCY
+
+Use ONE shared product dataset throughout:
+
+Homepage
+Products
+Product Details
+Wishlist
+Cart
+Checkout
+Dashboard
+
+Do not duplicate product information.
+
+---
+
+# RESPONSIVE
+
+Ensure excellent behavior on:
+
+1440px desktop
+1024px laptop
+768px tablet
+430px mobile
+390px mobile
+375px mobile
+
+No horizontal overflow.
+
+---
+
+# FINAL REQUIREMENT
+
+DO NOT use Power mode.
+
+DO NOT use Replit image search.
+
+DO NOT ask me to pay.
+
+Use direct public image URLs or existing local assets instead.
+
+Actually modify the project.
+
+After implementation run:
+
+npm run build
+
+npm run lint
+
+Start the Replit workflow and visually verify the pages.
+
+Fix errors before finishing.
+
+Report:
+
+* Files changed
+* Features completed
+* Number of products
+* Image implementation
+* Routes
+* Build result
+* Lint result
+* Remaining limitations
+
+Do not stop at an analysis or plan. Implement the changes.

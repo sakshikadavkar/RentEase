@@ -1,0 +1,672 @@
+We now have a validated 903-product catalog.
+
+STOP expanding the catalog.
+
+This task is a PREMIUM MARKETPLACE UI REDESIGN.
+
+I have reviewed the current screenshots and the website still looks too much like a generic SaaS/student project.
+
+Do NOT rebuild the application.
+Do NOT change the 903-product catalog.
+Do NOT regenerate product data.
+Do NOT remove existing routes/features.
+
+The objective is to make RentEase look and feel like a polished, real commercial rental marketplace.
+
+==================================================
+
+1. IMPORTANT CURRENT ISSUE — CATEGORY NAVIGATION
+   ==================================================
+
+The current Categories navigation opens:
+
+/products?tab=categories
+
+That is acceptable as a Categories browsing page.
+
+BUT clicking an individual category must DIRECTLY navigate to the filtered marketplace.
+
+Examples:
+
+Furniture
+→ /products?category=Furniture
+
+Appliances
+→ /products?category=Appliances
+
+Electronics
+→ /products?category=Electronics
+
+Office
+→ /products?category=Office
+
+Bedroom
+→ /products?category=Bedroom
+
+Living Room
+→ /products?category=Living%20Room
+
+Kitchen
+→ /products?category=Kitchen
+
+Study / Work From Home
+→ /products?category=Study%20%2F%20Work%20From%20Home
+
+When arriving there:
+
+* category is automatically selected
+* filtered products immediately appear
+* page scrolls to top
+* correct result count appears
+* no additional category selection required
+* browser back/forward works
+
+Do NOT use anchor scrolling for category selection.
+
+==================================================
+2. HOMEPAGE — MAJOR VISUAL REDESIGN
+===================================
+
+The current hero is too generic:
+
+large text
++
+paragraph
++
+search bar
++
+large empty area
+
+Replace it with a more premium editorial marketplace composition.
+
+The hero should communicate PRODUCTS immediately.
+
+DESKTOP HERO:
+
+LEFT:
+Small eyebrow:
+"RENT THE WAY YOU LIVE"
+
+Headline:
+"Premium things.
+Without the commitment."
+
+Short supporting copy.
+
+Primary CTA:
+"Explore rentals"
+
+Secondary CTA:
+"Shop by category"
+
+RIGHT:
+Large high-quality lifestyle/product image composition using the EXISTING relevant catalog image URLs.
+
+Visually feature several rental categories:
+
+* sofa/furniture
+* appliance
+* electronics/workspace
+
+The image should occupy a major portion of the hero.
+
+Avoid giant empty whitespace.
+
+The hero should feel visually rich immediately when the page loads.
+
+==================================================
+3. PREMIUM SEARCH
+=================
+
+Make the search feel like a REAL MARKETPLACE SEARCH rather than a generic SaaS input.
+
+Create a refined search module with:
+
+Search icon
+"What are you looking for?"
+Location
+Category
+Search rentals button
+
+It can overlap the hero bottom edge.
+
+Use subtle shadow and border.
+
+No excessive glassmorphism.
+
+==================================================
+4. SHOP BY CATEGORY
+===================
+
+Create a visually strong "Shop by category" section.
+
+Do NOT create 8 identical small cards.
+
+Use an editorial masonry-style composition.
+
+Make some categories larger than others.
+
+Example:
+
+Large:
+Furniture
+
+Large:
+Appliances
+
+Medium:
+Electronics
+
+Medium:
+Bedroom
+
+Smaller:
+Kitchen
+Living Room
+Office
+Study / Work From Home
+
+Use relevant existing product imagery.
+
+Each tile needs:
+
+image
+category name
+short descriptor
+arrow
+
+Hover:
+
+* subtle image zoom
+* overlay transition
+* text moves slightly
+* arrow appears
+
+Clicking the tile MUST navigate directly to the corresponding filtered /products URL.
+
+==================================================
+5. PRODUCT CARDS — REDESIGN
+===========================
+
+The current product cards contain too much information.
+
+Create a cleaner premium marketplace card.
+
+Card structure:
+
+IMAGE
+small badge
+wishlist
+
+CATEGORY
+
+PRODUCT NAME
+
+rating + review count
+
+₹1,499 / month
+
+city · available
+
+Primary subtle CTA:
+"View details"
+
+Avoid long descriptions on the main product card.
+
+Descriptions belong on the product detail page.
+
+Use strong image proportions.
+
+Card should feel like a premium commerce card rather than a dashboard card.
+
+==================================================
+6. PRODUCT IMAGE INTERACTIONS
+=============================
+
+On hover:
+
+image scale:
+1.02–1.04
+
+Very subtle.
+
+Add:
+
+* smooth transition
+* image positioning
+* wishlist micro interaction
+* CTA transition
+
+No flashy animations.
+
+==================================================
+7. PRODUCT CAROUSELS
+====================
+
+Do NOT show giant vertical grids for every homepage section.
+
+Create horizontal premium product carousels.
+
+Sections:
+
+TRENDING NOW
+8 products
+
+POPULAR FURNITURE
+8 products
+
+APPLIANCES PEOPLE LOVE
+8 products
+
+ELECTRONICS PICKS
+8 products
+
+BEDROOM ESSENTIALS
+8 products
+
+WORK FROM HOME
+8 products
+
+BEST RATED
+8 products
+
+For desktop:
+approximately 4 cards visible.
+
+For mobile:
+approximately 1.2–2 cards visible.
+
+Add elegant left/right controls.
+
+No ugly browser scrollbar.
+
+Use the existing 903-product catalog.
+
+Do not repeat the same products unnecessarily.
+
+==================================================
+8. EDITORIAL MARKETPLACE SECTIONS
+=================================
+
+Introduce large image-led sections between product carousels.
+
+SECTION:
+
+"Make your space yours."
+
+Large lifestyle image on one side.
+
+Copy:
+"Furniture that fits your lifestyle, without locking you into ownership."
+
+CTA:
+"Explore furniture"
+
+CTA → /products?category=Furniture
+
+Another:
+
+"Everything your new home needs."
+
+Categories:
+Bedroom + Kitchen + Appliances
+
+CTA:
+"Explore essentials"
+
+Another:
+
+"Build your perfect workspace."
+
+Categories:
+Office + Study / Work From Home + Electronics
+
+CTA:
+"Explore workspace"
+
+These should look editorial and premium.
+
+Do NOT make them identical cards.
+
+==================================================
+9. HOMEPAGE VISUAL RHYTHM
+=========================
+
+The homepage should feel like a real marketplace.
+
+Structure:
+
+HERO
+↓
+TRUST STRIP
+↓
+SHOP BY CATEGORY
+↓
+TRENDING NOW
+↓
+EDITORIAL FURNITURE SECTION
+↓
+POPULAR FURNITURE
+↓
+APPLIANCES
+↓
+EDITORIAL WORKSPACE SECTION
+↓
+ELECTRONICS / WORK FROM HOME
+↓
+BEDROOM / KITCHEN
+↓
+BEST RATED
+↓
+HOW IT WORKS
+↓
+WHY RENTEASE
+↓
+TESTIMONIALS
+↓
+FINAL CTA
+↓
+FOOTER
+
+Use generous but controlled spacing.
+
+Do NOT create huge blank areas.
+
+==================================================
+10. TYPOGRAPHY
+==============
+
+Improve typography hierarchy.
+
+Avoid making the hero headline excessively huge.
+
+Use:
+
+* strong display heading
+* smaller eyebrow
+* comfortable paragraph width
+* clear section titles
+* subtle metadata
+* restrained uppercase labels
+
+The design should feel editorial rather than SaaS.
+
+==================================================
+11. COLOR SYSTEM
+================
+
+Keep the existing RentEase blue identity.
+
+But reduce the amount of blue.
+
+Use:
+
+* white
+* warm/light neutral backgrounds
+* dark navy/charcoal
+* RentEase blue as accent
+* subtle green for availability
+* subtle borders
+
+Do NOT:
+
+* make everything blue
+* add neon effects
+* add giant gradients
+* add colorful blobs
+* add glassmorphism everywhere
+
+==================================================
+12. NAVBAR
+==========
+
+Refine the navbar.
+
+Keep:
+
+RentEase
+Home
+Explore
+Categories
+How It Works
+Search
+Cart
+Wishlist
+Sign In / Get Started
+
+Make it feel like a premium commerce navbar.
+
+On scroll:
+
+* slightly stronger background
+* subtle shadow/border
+* smooth transition
+
+Do not make it oversized.
+
+==================================================
+13. EXPLORE PAGE
+================
+
+Keep all existing functionality.
+
+But visually refine it.
+
+Current card information is too dense.
+
+Improve:
+
+* product image ratio
+* card spacing
+* typography
+* filters
+* sorting
+* category tabs
+* result count
+* buttons
+
+Keep:
+
+search
+category
+subcategory
+price
+rating
+city
+availability
+sorting
+load more
+wishlist
+cart
+product details
+
+Initial rendering should remain limited.
+
+==================================================
+14. CATEGORY LANDING
+====================
+
+Keep:
+
+/products?tab=categories
+
+as a category discovery page if currently implemented.
+
+Make it visually premium.
+
+Show category tiles with relevant images.
+
+But clicking a tile MUST directly navigate to:
+
+/products?category=...
+
+Never scroll to a homepage section.
+
+==================================================
+15. ANIMATIONS
+==============
+
+Use the existing Framer Motion dependency.
+
+Add tasteful micro-interactions:
+
+* image hover zoom
+* card lift
+* wishlist animation
+* button press
+* category image zoom
+* section reveal
+* navbar transition
+* carousel transitions
+
+Duration:
+approximately 200–350ms.
+
+Respect prefers-reduced-motion.
+
+No:
+
+* bouncing
+* spinning
+* excessive parallax
+* neon glow
+* dramatic animations
+
+==================================================
+16. RESPONSIVE DESIGN
+=====================
+
+Check:
+
+1440px desktop
+1920px desktop
+tablet
+mobile
+
+Mobile:
+
+* no horizontal page overflow
+* horizontal product carousels swipe correctly
+* category tiles adapt
+* search remains usable
+* navbar collapses correctly
+* buttons remain accessible
+
+==================================================
+17. DO NOT CHANGE
+=================
+
+Preserve:
+
+903 products
+unique IDs
+unique names
+product images
+catalog generator
+cart
+wishlist
+checkout
+login
+register
+dashboard
+product detail
+rental duration
+quantity
+search
+filters
+sorting
+load more
+routing
+rental context
+
+==================================================
+18. VERIFICATION
+================
+
+After implementation:
+
+npm run lint
+
+npm run build
+
+Restart workflow.
+
+Test:
+
+/
+
+/products
+
+/products?tab=categories
+
+/products?category=Furniture
+
+/products?category=Appliances
+
+/products?category=Electronics
+
+/products?category=Office
+
+/products?category=Bedroom
+
+/products?category=Living%20Room
+
+/products?category=Kitchen
+
+/products?category=Study%20%2F%20Work%20From%20Home
+
+Also test:
+
+Home → category → Explore
+
+Explore → product detail
+
+Product detail → cart
+
+Wishlist
+
+Search
+
+Filters
+
+Load more
+
+Mobile layout
+
+Check browser console for errors.
+
+DO NOT publish.
+
+==================================================
+FINAL GOAL
+==========
+
+Do not optimize for "more features."
+
+Optimize for:
+
+"Would a user believe this is a real premium rental marketplace?"
+
+The result should feel:
+
+premium
+editorial
+commercial
+modern
+product-focused
+Indian-market appropriate
+high quality
+visually rich
+
+NOT:
+
+student project
+generic SaaS
+AI template
+empty landing page
+dashboard
+basic ecommerce template
+
+Use the existing 903-product catalog as the foundation.
+
+Make the WEBSITE feel bigger, richer and more premium through presentation and product discovery.

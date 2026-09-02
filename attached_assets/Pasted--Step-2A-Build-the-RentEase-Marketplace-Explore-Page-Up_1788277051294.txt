@@ -1,0 +1,438 @@
+## Step 2A — Build the RentEase Marketplace / Explore Page
+
+Upgrade the EXISTING RentEase React/Vite project into a polished, premium rental marketplace.
+
+IMPORTANT: This is an EXISTING project imported from GitHub. Do NOT rebuild it from scratch.
+
+### RULES — MUST FOLLOW
+
+* Preserve the existing RentEase homepage exactly as much as reasonably possible.
+* Do NOT delete or replace the existing homepage.
+* Do NOT remove existing components, routes, assets, product images, styling, or functionality.
+* Reuse the existing UI components and shared theme/data wherever possible.
+* Do NOT modify authentication, Dashboard, Cart, Database, or backend functionality yet.
+* Do NOT implement checkout yet.
+* Do NOT add a database yet.
+* Do NOT replace existing product images with new images.
+* Do NOT create unnecessary duplicate components.
+* Keep the existing React/Vite architecture.
+* Keep the premium light blue/white RentEase visual identity established in Step 1.
+* Make the implementation responsive for desktop, tablet, and mobile.
+* Keep the code clean, reusable, and component-based.
+
+### FIRST: INSPECT BEFORE CODING
+
+Before making changes:
+
+1. Inspect the existing project structure.
+2. Find the existing product/category data in `theme.js` and/or wherever the current project stores it.
+3. Find the existing Card, Badge, Button, Input, SectionTitle and other reusable UI components.
+4. Find the current routing setup.
+5. Find the existing Explore/Products page implementation.
+6. Find all existing product images/assets.
+7. Understand how the homepage currently links to Explore/Products.
+
+Then implement Step 2A using the existing architecture.
+
+---
+
+# GOAL
+
+Turn the existing Explore/Products page from a basic/stub page into a professional commercial rental marketplace.
+
+The page should feel similar in quality to a real furniture/appliance rental company — NOT like a college project template.
+
+Use the existing RentEase design language:
+
+* premium light theme
+* sophisticated blue/white palette
+* clean typography
+* generous spacing
+* subtle borders
+* soft shadows
+* rounded cards
+* restrained animations
+* strong visual hierarchy
+
+Avoid:
+
+* excessive gradients
+* excessive glassmorphism
+* huge decorative effects
+* random colors
+* overly flashy animations
+* generic AI-looking UI
+
+---
+
+# 1. EXPLORE PAGE STRUCTURE
+
+Create/improve the Explore page with this structure:
+
+### Header section
+
+Add:
+
+**Eyebrow:**
+"EXPLORE RENTALS"
+
+**Main heading:**
+"Everything you need. Nothing you need to own."
+
+**Supporting text:**
+"Rent premium furniture, appliances, and everyday essentials with flexible monthly plans."
+
+Keep the section compact and premium.
+
+---
+
+# 2. SEARCH
+
+Create a functional search system using the EXISTING product data.
+
+The search input should search by:
+
+* product name
+* category
+* description
+* relevant keywords/tags if they exist
+
+Example searches:
+
+* Sofa
+* Refrigerator
+* Laptop
+* Bed
+* Washing Machine
+
+Search should update the visible product grid immediately.
+
+Add a clear/reset option when a search is active.
+
+Do NOT add a backend search system.
+
+Use client-side filtering for now.
+
+---
+
+# 3. CATEGORY FILTERS
+
+Create a polished category filter.
+
+Use the categories already present in the project.
+
+Possible categories may include:
+
+* All
+* Furniture
+* Appliances
+* Electronics
+* Bedroom
+* Living Room
+* Kitchen
+* Work From Home
+
+IMPORTANT:
+
+Do NOT invent categories if the existing project already has a defined category structure. Reuse the existing data.
+
+Desktop:
+
+* Use a clean horizontal category selector or sidebar depending on what fits the existing design best.
+
+Mobile:
+
+* Make categories horizontally scrollable or use a compact dropdown.
+
+The selected category must visibly change state.
+
+---
+
+# 4. FILTERS
+
+Add useful client-side filters.
+
+At minimum:
+
+### Price
+
+Allow users to filter products by monthly rental price.
+
+Use a clean price range control or suitable dropdown/range UI.
+
+### Availability
+
+If the existing product data contains availability information, allow filtering by it.
+
+If availability does NOT exist in the existing data, do not create fake availability logic.
+
+### Rental type/duration
+
+Only add this if existing product data supports it.
+
+Do not invent backend functionality.
+
+---
+
+# 5. SORTING
+
+Add a polished "Sort by" dropdown.
+
+Options:
+
+* Recommended
+* Price: Low to High
+* Price: High to Low
+* Name: A to Z
+* Name: Z to A
+
+Sorting must actually work.
+
+---
+
+# 6. PRODUCT GRID
+
+Build a responsive product grid using the EXISTING product data and EXISTING product images.
+
+Desktop:
+
+* 4 columns where space allows
+
+Tablet:
+
+* 2–3 columns
+
+Mobile:
+
+* 1–2 columns depending on screen width
+
+Each product card should contain:
+
+* Existing product image
+* Category
+* Product name
+* Short description if available
+* Monthly rental price
+* "per month"
+* Relevant badge if existing data supports it
+* View Details button/link
+* Wishlist icon/button only if the existing project already has wishlist functionality
+
+### Product card design
+
+Improve the visual quality without replacing the existing design system.
+
+Use:
+
+* consistent image aspect ratio
+* image container with subtle background
+* rounded corners
+* clean typography
+* subtle border
+* soft shadow
+* premium hover state
+* slight image scale on hover
+* clear price hierarchy
+* accessible buttons
+
+Do not over-animate the cards.
+
+---
+
+# 7. PRODUCT COUNT
+
+Show a small result summary near the grid:
+
+Example:
+
+"24 rentals available"
+
+The number must be dynamically calculated from the filtered product list.
+
+Use the actual product count.
+
+If no products match:
+
+Show a polished empty state:
+
+"No rentals found"
+
+"Try adjusting your search or filters."
+
+Add a "Clear filters" button that resets the filters.
+
+---
+
+# 8. PRODUCT DETAIL ROUTING
+
+Do NOT build the full product detail page yet.
+
+However, prepare the routing correctly so clicking a product can navigate to:
+
+`/products/:id`
+
+OR reuse an existing product-detail route if one already exists.
+
+IMPORTANT:
+
+Do not create a duplicate route if an existing product-detail route already exists.
+
+For now, make the product cards navigate correctly using React Router.
+
+If the detail page does not exist yet, create only the route placeholder if necessary.
+
+Do NOT implement the full detail page in Step 2A.
+
+---
+
+# 9. HOMEPAGE INTEGRATION
+
+Check the existing homepage "Browse Products" / featured product sections.
+
+Make sure clicking a product or "Browse Products" naturally takes the user to the Explore page.
+
+Do NOT redesign the homepage unnecessarily.
+
+If the homepage currently contains product cards, reuse the same shared product data so the homepage and Explore page do not have separate duplicated datasets.
+
+---
+
+# 10. DATA ARCHITECTURE
+
+Keep product data centralized.
+
+If product data currently exists in `theme.js`, reuse it.
+
+If necessary, create a small reusable data module such as:
+
+`src/data/products.js`
+
+BUT:
+
+Do not create duplicate product datasets.
+
+Use one source of truth.
+
+Make the data structure reusable for the future Product Details, Cart, and Dashboard steps.
+
+Do not connect a database yet.
+
+---
+
+# 11. COMPONENTS
+
+Reuse existing components wherever possible.
+
+If new components are needed, create clean reusable components such as:
+
+* `ProductCard`
+* `ProductFilters`
+* `ProductSort`
+* `CategoryFilter`
+* `SearchResults`
+
+Only create components that are genuinely useful.
+
+Follow the existing project naming conventions and folder structure.
+
+---
+
+# 12. RESPONSIVENESS
+
+The Explore page must work properly on:
+
+* desktop
+* laptop
+* tablet
+* mobile
+
+Pay particular attention to:
+
+* filter layout
+* search bar
+* category navigation
+* product cards
+* sort controls
+* spacing
+* buttons
+* text wrapping
+
+Do not allow horizontal page overflow.
+
+---
+
+# 13. ACCESSIBILITY
+
+Use:
+
+* semantic HTML
+* accessible buttons
+* meaningful labels
+* keyboard-friendly controls
+* visible focus states
+* appropriate alt text using existing product information
+
+Do not sacrifice usability for visual effects.
+
+---
+
+# 14. PERFORMANCE
+
+Avoid unnecessary libraries.
+
+Do not install new dependencies unless absolutely necessary.
+
+Use existing dependencies and components whenever possible.
+
+Do not introduce unnecessary state-management libraries.
+
+Client-side filtering is sufficient for this step.
+
+---
+
+# 15. ERROR CHECKING
+
+After implementation:
+
+1. Run the project.
+2. Check the browser preview.
+3. Test navigation.
+4. Test search.
+5. Test category filtering.
+6. Test price filtering.
+7. Test sorting.
+8. Test clear/reset filters.
+9. Test product-card navigation.
+10. Test desktop and mobile layouts.
+11. Check browser console for errors.
+12. Run the production build.
+
+Fix any errors caused by your changes.
+
+---
+
+# VERY IMPORTANT — SCOPE
+
+This is ONLY Step 2A.
+
+DO NOT implement:
+
+* full Product Details page
+* Cart functionality
+* Checkout
+* Authentication
+* Dashboard
+* Database
+* Payments
+* Backend APIs
+
+Those will be separate steps later.
+
+At the end, give me a concise summary of:
+
+1. Files changed
+2. Features implemented
+3. Existing functionality preserved
+4. Any issues that remain
+
+Then STOP. Do not continue automatically to Step 2B.

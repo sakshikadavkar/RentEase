@@ -1,0 +1,157 @@
+Continue the previous RentEase implementation from the existing checkpoint.
+
+Do NOT start over and do NOT regenerate the 400+ product catalog.
+
+The previous task already created the expanded catalog and started upgrading the marketplace, but the free Agent quota ran out before completion.
+
+First inspect the CURRENT project state and determine exactly what is already completed.
+
+Then continue only with the unfinished work.
+
+### Priority 1 — Fix and finish the current implementation
+
+* Fix any remaining ESLint errors.
+* Run `npm run build`.
+* Run `npm run lint`.
+* Do not change working functionality unnecessarily.
+
+### Priority 2 — Complete the Explore marketplace
+
+Make `/products` a polished premium marketplace supporting the existing 400+ catalog.
+
+It must have:
+
+* Search
+* Category filter
+* Subcategory filter
+* Price range
+* Rating filter
+* City filter
+* Availability filter
+* Sort:
+
+  * Recommended
+  * Price low to high
+  * Price high to low
+  * Rating
+  * Newest
+  * Popular
+* Result count
+* Reset filters
+* Pagination or Load More
+
+Do NOT render all 400+ products simultaneously.
+
+Use efficient rendering and lazy-loaded images.
+
+### Priority 3 — Product imagery
+
+Keep the product images already created.
+
+Do NOT use paid Replit image search.
+
+Do NOT replace working images.
+
+Every product should have a relevant image for its actual category/product.
+
+If an external image fails, use the existing fallback.
+
+### Priority 4 — Homepage
+
+Finish the premium homepage using the expanded catalog.
+
+Add polished category-specific sections such as:
+
+* Featured Rentals
+* Popular Furniture
+* Trending Appliances
+* Electronics
+* Kitchen Essentials
+* Bedroom Essentials
+* Office & Work From Home
+
+Use real product images.
+
+Do not simply duplicate the same product grid in every section.
+
+Each section should feel visually distinct while remaining consistent with RentEase branding.
+
+### Priority 5 — Premium quality
+
+The final site should feel like a real commercial rental startup.
+
+Maintain:
+
+* Premium light theme
+* White / blue / navy palette
+* Plus Jakarta Sans
+* High-quality product photography
+* Strong typography
+* Professional spacing
+* Subtle shadows
+* Elegant cards
+* Subtle animations
+* Responsive mobile layout
+
+Avoid:
+
+* Emoji-based UI
+* Placeholder graphics
+* Excessive gradients
+* Excessive glassmorphism
+* Generic student-template appearance
+
+### DO NOT BREAK
+
+Preserve:
+
+* Existing routing
+* Cart
+* Wishlist
+* Checkout
+* Product details
+* Login/register
+* Dashboard
+* Shared rental context
+* Replit/Vite configuration
+* Existing assets
+* Existing working components
+
+Do not rebuild the project.
+
+### Verification
+
+After making the changes:
+
+npm run build
+
+npm run lint
+
+Restart the Replit workflow.
+
+Verify:
+
+/
+/products
+/products/:id
+/cart
+/checkout
+/login
+/register
+/dashboard
+
+Test search, filters, sorting, wishlist, cart and product navigation.
+
+Check browser console for application errors.
+
+Do NOT publish yet.
+
+At the end report:
+
+* Current total product count
+* Products per category
+* Files changed
+* Features completed
+* Build result
+* Lint result
+* Remaining issues

@@ -1,0 +1,150 @@
+## Step 2A — Build the RentEase Marketplace / Explore Page
+
+Now that the existing RentEase React/Vite project is running successfully, implement ONLY Step 2A.
+
+IMPORTANT:
+
+* This is an EXISTING project. Do NOT rebuild it from scratch.
+* Do NOT delete or replace the existing project structure.
+* Do NOT remove existing pages, routes, components, assets, styling, or functionality.
+* Reuse the existing components and product/category data wherever possible.
+* Do NOT modify authentication, cart functionality, dashboard, database, or other unrelated features yet.
+* Do NOT replace the existing product images/assets.
+* Keep the existing premium light blue/white RentEase visual identity.
+* Make the page responsive for desktop, tablet, and mobile.
+
+### Goal
+
+Replace the current placeholder `/products` page with a polished, commercial-quality rental marketplace/explore page.
+
+### Build `/products`
+
+Create a premium marketplace experience containing:
+
+1. **Marketplace hero/header**
+
+   * Strong heading such as "Find What You Need. Rent What You Love."
+   * Short supporting description.
+   * Search input for furniture, appliances, electronics, etc.
+   * Search should actually filter the displayed products.
+
+2. **Category navigation**
+
+   * All
+   * Furniture
+   * Appliances
+   * Electronics
+   * Office
+   * Any other categories already present in the existing `theme.js` data.
+   * Category selection must actually filter products.
+
+3. **Product listing**
+
+   * Display the existing product catalog from `frontend/src/constants/theme.js`.
+   * Do NOT invent a completely separate product dataset if existing data can be reused.
+   * Use/reuse existing Card, Badge, Button, and other UI components where appropriate.
+   * Each card should show:
+
+     * Existing product image
+     * Product name
+     * Category
+     * Short description if available
+     * Monthly rental price
+     * Relevant badge/status if available
+     * Wishlist/favorite affordance if appropriate
+     * Clear "View Details" or equivalent CTA
+
+4. **Filtering**
+
+   * Category filter
+   * Search
+   * Price filter/range if the existing data supports it
+   * Keep the interface clean and easy to use.
+
+5. **Sorting**
+   Add a working sort control:
+
+   * Recommended
+   * Price: Low to High
+   * Price: High to Low
+   * Name: A to Z
+
+6. **Results information**
+
+   * Show the number of matching rentals.
+   * Provide a polished empty state when no products match.
+   * Include a clear way to reset filters.
+
+7. **Responsive design**
+
+   * Desktop: polished marketplace layout.
+   * Tablet: adapt spacing/grid.
+   * Mobile: filters should become a compact/mobile-friendly control rather than creating an unusable sidebar.
+
+8. **Navigation**
+
+   * Keep the existing Navbar and Footer.
+   * Product cards should prepare for product-detail navigation, but DO NOT implement the full Product Details page yet.
+   * Do not add unnecessary routes unless required for the existing `/products` functionality.
+
+### Design requirements
+
+Make it feel like a REAL commercial rental marketplace suitable for a professional portfolio and internship applications.
+
+Use:
+
+* Premium light theme
+* White backgrounds
+* Sophisticated blue/slate accents
+* Clean typography
+* Generous spacing
+* Subtle borders/shadows
+* Professional product cards
+* Refined hover/focus states
+* Minimal tasteful animations
+* Strong visual hierarchy
+
+Avoid:
+
+* Excessive gradients
+* Excessive glassmorphism
+* Huge decorative effects
+* Beginner/student-template appearance
+* Unnecessary dependencies
+
+### Code quality
+
+* Keep components reusable.
+* Follow the existing project architecture.
+* Reuse existing design-system components.
+* Keep data separate from presentation.
+* Avoid duplicating product data.
+* Do not introduce unnecessary libraries.
+
+### Verification
+
+After implementation:
+
+1. Run `npm run build`.
+2. Run `npm run lint`.
+3. Start/verify the Replit workflow if necessary.
+4. Open `/products` in Preview.
+5. Test:
+
+   * Search
+   * Category filtering
+   * Sorting
+   * Reset filters
+   * Responsive layout
+   * Product-card interactions
+6. Fix any errors caused by your changes.
+
+IMPORTANT:
+Implement ONLY Step 2A. Do NOT continue to Step 2B/Product Details, Cart, Authentication, Dashboard, or Database automatically.
+
+At the end, give me a concise summary of:
+
+* Files changed
+* Features implemented
+* Verification results
+* Any remaining issues

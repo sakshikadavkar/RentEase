@@ -1,0 +1,563 @@
+Continue the existing RentEase project from the current checkpoint.
+
+IMPORTANT: DO NOT rebuild the application and DO NOT remove or replace the existing 423-product catalog.
+
+I want to expand the marketplace from 423 products to approximately 900–1,000+ UNIQUE products.
+
+The goal is to make RentEase feel like a LARGE REAL RENTAL MARKETPLACE, not a small demo catalog.
+
+==================================================
+CATALOG TARGET
+==============
+
+Target approximately 100–125 UNIQUE products in EACH of the 8 major categories:
+
+1. Furniture
+2. Appliances
+3. Electronics
+4. Office
+5. Bedroom
+6. Living Room
+7. Kitchen
+8. Study / Work From Home
+
+Target final catalog:
+900–1,000+ products.
+
+Do NOT simply duplicate the existing 423 products.
+
+Every product must have:
+
+* unique ID
+* unique display name
+* category
+* meaningful subcategory
+* realistic product description
+* monthly rental price
+* original price
+* security deposit
+* rating
+* review count
+* Indian city
+* availability
+* badge where appropriate
+* image
+* gallery
+* specifications
+* included items
+* rental durations
+* delivery information
+
+==================================================
+PRODUCT VARIETY
+===============
+
+Create REALISTIC product families and variants.
+
+Furniture examples:
+
+* 2-seater sofas
+* 3-seater sofas
+* sectional sofas
+* recliners
+* accent chairs
+* coffee tables
+* side tables
+* TV units
+* bookshelves
+* shoe racks
+* wardrobes
+* cabinets
+* study tables
+* dining tables
+* dining chairs
+* bar stools
+* benches
+* ottomans
+* storage units
+* floor lamps
+
+Appliances:
+
+* single-door refrigerators
+* double-door refrigerators
+* side-by-side refrigerators
+* washing machines
+* dryers
+* microwave ovens
+* air conditioners
+* air coolers
+* air purifiers
+* vacuum cleaners
+* water purifiers
+* dishwashers
+* induction cooktops
+* geysers
+* fans
+
+Electronics:
+
+* laptops
+* monitors
+* televisions
+* tablets
+* projectors
+* speakers
+* soundbars
+* gaming consoles
+* printers
+* routers
+* cameras
+* keyboards
+* mice
+* headphones
+* webcams
+
+Office:
+
+* ergonomic chairs
+* executive chairs
+* visitor chairs
+* standing desks
+* office desks
+* filing cabinets
+* storage cabinets
+* meeting tables
+* monitor arms
+* office lamps
+* whiteboards
+* conference accessories
+
+Bedroom:
+
+* single beds
+* double beds
+* queen beds
+* king beds
+* mattresses
+* bedside tables
+* wardrobes
+* dressing tables
+* mirrors
+* chest of drawers
+* bedroom benches
+* lamps
+* storage furniture
+
+Living Room:
+
+* sofas
+* sectionals
+* recliners
+* lounge chairs
+* TV units
+* coffee tables
+* side tables
+* bookshelves
+* floor lamps
+* rugs
+* ottomans
+* consoles
+
+Kitchen:
+
+* refrigerators
+* microwave ovens
+* induction cooktops
+* kitchen storage
+* dining tables
+* dining chairs
+* water purifiers
+* dishwashers
+* air fryers
+* mixers
+* coffee machines
+* electric kettles
+* kitchen carts
+* storage racks
+
+Study / Work From Home:
+
+* study desks
+* ergonomic chairs
+* monitors
+* laptops
+* webcams
+* microphones
+* printers
+* desk lamps
+* bookshelves
+* monitor stands
+* keyboard/mouse sets
+* office storage
+* standing desks
+* filing cabinets
+
+==================================================
+IMPORTANT: UNIQUE PRODUCTS
+==========================
+
+Avoid meaningless variations such as:
+
+"Premium Sofa 1"
+"Premium Sofa 2"
+"Premium Sofa 3"
+
+Instead use believable names/product models.
+
+Examples:
+
+"Urban Loft 3-Seater Sofa"
+"Oslo Fabric Lounge Sofa"
+"Milano Sectional Sofa"
+"Aria Velvet Accent Chair"
+"Nordic Oak Coffee Table"
+
+For electronics/appliances use realistic model-style names where appropriate.
+
+Products can have variants based on:
+
+* design
+* size
+* material
+* capacity
+* configuration
+* model
+* brand-style naming
+* features
+
+But every listing must still feel like a distinct rental product.
+
+==================================================
+PRICING
+=======
+
+Use realistic Indian monthly rental prices.
+
+Examples:
+Furniture: ₹399–₹4,999/month
+Appliances: ₹499–₹5,999/month
+Electronics: ₹399–₹8,999/month
+Office: ₹299–₹4,999/month
+Bedroom: ₹399–₹5,999/month
+Living Room: ₹399–₹5,999/month
+Kitchen: ₹299–₹4,999/month
+Study/WFH: ₹299–₹7,999/month
+
+Do not make every product use the same price.
+
+Use realistic:
+
+* originalPrice
+* monthlyPrice
+* securityDeposit
+
+Prices should correlate reasonably with the product.
+
+==================================================
+INDIAN MARKET
+=============
+
+Use a wide range of Indian cities.
+
+Examples:
+Mumbai
+Pune
+Delhi
+Gurgaon
+Noida
+Bangalore
+Hyderabad
+Chennai
+Kolkata
+Ahmedabad
+Jaipur
+Indore
+Chandigarh
+Kochi
+Nagpur
+Lucknow
+Surat
+Nashik
+Mysore
+Coimbatore
+
+Distribute products across cities instead of assigning the same city repeatedly.
+
+==================================================
+IMAGES
+======
+
+IMPORTANT:
+
+Do NOT use paid Replit image search.
+
+Do NOT add a paid image API.
+
+Do NOT replace product imagery with gradients, icons, emoji, or placeholders.
+
+Reuse the existing public CDN/image infrastructure already implemented.
+
+Each product should have:
+
+* relevant image
+* gallery images where available
+* fallback behavior
+
+Images should visually match the product type.
+
+Do not use a sofa image for a refrigerator.
+Do not use a laptop image for a washing machine.
+Do not use generic unrelated images.
+
+If the existing image pool cannot provide a unique image for every product, intelligently reuse relevant high-quality images across closely related products rather than using unrelated imagery.
+
+==================================================
+CATALOG DATA ARCHITECTURE
+=========================
+
+DO NOT create a giant unmaintainable 1,000+ line manually duplicated array if the existing catalog architecture can be improved.
+
+Use the existing catalog generation/family approach where appropriate.
+
+Create reusable product families/configurations that generate realistic unique products.
+
+However, the final exported catalog MUST contain 900–1,000+ actual product records.
+
+Make sure:
+
+* IDs are unique
+* display names are unique
+* product details are unique enough
+* prices vary
+* cities vary
+* ratings vary
+* specifications vary
+* images are relevant
+
+==================================================
+EXPLORE PAGE
+============
+
+The existing Explore page must automatically work with the larger catalog.
+
+Preserve:
+
+* search
+* category filters
+* subcategory filters
+* price filters
+* rating filters
+* city filters
+* availability filters
+* sorting
+* popularity
+* newest
+* price
+* rating
+* load more
+* wishlist
+* cart
+* product navigation
+
+Do NOT render all 900–1,000 products at once.
+
+Continue using:
+
+* limited initial rendering
+* load more/pagination
+* lazy-loaded images
+* efficient filtering
+* memoization where useful
+
+Initial visible products should remain around 24.
+
+==================================================
+CATEGORY NAVIGATION
+===================
+
+Preserve the previously fixed behavior.
+
+Clicking:
+
+Furniture
+→ /products?category=Furniture
+
+Appliances
+→ /products?category=Appliances
+
+Electronics
+→ /products?category=Electronics
+
+Office
+→ /products?category=Office
+
+Bedroom
+→ /products?category=Bedroom
+
+Living Room
+→ /products?category=Living%20Room
+
+Kitchen
+→ /products?category=Kitchen
+
+Study / Work From Home
+→ /products?category=Study%20%2F%20Work%20From%20Home
+
+The category must be selected automatically on Explore.
+
+The page must open at the top.
+
+==================================================
+HOMEPAGE
+========
+
+Once the catalog is expanded, update homepage product sections so they use the larger inventory intelligently.
+
+Do NOT show the same products repeatedly.
+
+Use different selections for:
+
+Trending Now
+Popular Furniture
+Appliances People Love
+Electronics Picks
+Bedroom Essentials
+Kitchen Essentials
+Living Room
+Office & Work From Home
+Best Rated
+Recently Added
+
+Each section should use appropriate category filtering.
+
+Use 6–8 products per section.
+
+==================================================
+PERFORMANCE
+===========
+
+900–1,000 products must NOT make the app slow.
+
+Requirements:
+
+* Do not render all products simultaneously.
+* Use pagination/load-more.
+* Lazy-load images.
+* Avoid unnecessary React re-renders.
+* Keep filtering responsive.
+* Avoid huge DOM trees.
+* Keep animations lightweight.
+* Do not add unnecessary dependencies.
+
+==================================================
+DATA INTEGRITY CHECK
+====================
+
+After generating the catalog, run a validation script/check.
+
+Verify:
+
+total products >= 900
+
+unique IDs = total products
+
+unique names = total products
+
+Every product has:
+id
+name
+category
+subcategory
+description
+monthlyPrice
+originalPrice
+securityDeposit
+rating
+reviewCount
+city
+availability
+image
+gallery
+specifications
+includedItems
+rental durations
+delivery info
+
+Verify every major category has at least 100 products.
+
+Report the exact counts.
+
+==================================================
+DO NOT BREAK EXISTING FEATURES
+==============================
+
+Preserve:
+
+Home
+Explore
+Product Details
+Cart
+Checkout
+Login
+Register
+Dashboard
+Wishlist
+Search
+Filters
+Sorting
+Rental duration
+Quantity
+Order demo
+Navigation
+
+==================================================
+VERIFICATION
+============
+
+After implementation:
+
+1. npm run lint
+2. npm run build
+3. Restart workflow
+4. Verify homepage
+5. Verify Explore
+6. Verify each category
+7. Verify product details
+8. Verify cart
+9. Verify wishlist
+10. Verify search
+11. Verify filters
+12. Verify load more
+13. Check browser console
+14. Check mobile responsiveness
+
+Do NOT publish.
+
+==================================================
+FINAL REPORT
+============
+
+Report:
+
+* final product count
+* count per category
+* unique ID count
+* unique name count
+* number of product families
+* image coverage
+* files changed
+* Explore performance approach
+* homepage changes
+* lint result
+* build result
+* any remaining issues
+
+MOST IMPORTANT:
+
+The objective is not merely to reach 900+ records.
+
+The catalog should feel like a REAL, DIVERSE RENTAL MARKETPLACE with believable products, pricing, cities, specifications and relevant imagery.
+
+Do not regenerate the existing catalog from scratch.
+Extend the current implementation intelligently.

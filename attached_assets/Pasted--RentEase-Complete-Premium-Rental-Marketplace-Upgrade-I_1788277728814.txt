@@ -1,0 +1,941 @@
+# RentEase — Complete Premium Rental Marketplace Upgrade
+
+I want RentEase to become a COMPLETE, PREMIUM, REALISTIC furniture and appliance rental marketplace website suitable for a professional portfolio/project demonstration.
+
+The current project is an existing React + Vite application. DO NOT rebuild it from scratch.
+
+Use the existing project structure, routing, components, theme, product data, and functionality as the foundation, but upgrade the application substantially so the final result feels like a real commercial startup website rather than a basic student project.
+
+## CORE REQUIREMENT
+
+The final RentEase website must look like a polished real-world rental platform similar in quality to modern premium e-commerce/rental websites.
+
+It must have:
+
+* High-quality product imagery
+* Premium responsive UI
+* Realistic product catalog
+* Complete navigation
+* Product browsing
+* Product details
+* Search
+* Filters
+* Sorting
+* Wishlist
+* Cart
+* Authentication UI
+* User dashboard
+* Rental flow
+* Responsive mobile design
+* Professional footer
+* Consistent design system
+* Smooth but subtle animations
+* Proper empty/loading/error states
+* Excellent spacing and typography
+
+DO NOT make it look like a generic AI-generated dashboard.
+
+---
+
+# 1. DESIGN DIRECTION
+
+Use a premium light theme.
+
+Brand:
+
+RentEase
+
+Tagline:
+
+"Premium living. Flexible renting."
+
+Visual style:
+
+* White / very light backgrounds
+* Deep navy/slate text
+* RentEase blue accent
+* Subtle cyan/blue highlights
+* Premium typography
+* Large editorial headings
+* Rounded but sophisticated cards
+* Soft shadows
+* Thin borders
+* Generous whitespace
+* High-quality imagery
+* Subtle hover animations
+* Smooth transitions
+* Professional iconography
+
+Avoid:
+
+* Excessive gradients
+* Excessive glassmorphism
+* Neon colors
+* Huge unnecessary animations
+* Generic template appearance
+* Cartoon-style illustrations
+* Emoji as UI
+* Fake-looking product images
+* Excessive rounded cards everywhere
+
+The site should feel like a funded startup/product company.
+
+---
+
+# 2. PRODUCT IMAGES — VERY IMPORTANT
+
+The existing project currently lacks proper product photography.
+
+Fix this.
+
+Every major product card MUST have a proper realistic product image.
+
+Use appropriate royalty-friendly/public image sources such as Unsplash/Pexels or another reliable image source.
+
+Examples:
+
+Furniture:
+
+* Modern sofa
+* Sectional sofa
+* Bed
+* Mattress
+* Dining table
+* Office chair
+* Wardrobe
+* Coffee table
+
+Appliances:
+
+* Refrigerator
+* Washing machine
+* Microwave
+* Air conditioner
+* Television
+* Air purifier
+
+Electronics:
+
+* Laptop
+* Monitor
+* Gaming console
+* Tablet
+* Smartphone
+
+Office:
+
+* Desk
+* Ergonomic chair
+* Monitor
+* Printer
+
+IMPORTANT:
+
+Do not use random unrelated photos.
+
+Each product image must visually match the product.
+
+Images should:
+
+* Have consistent aspect ratios
+* Use object-fit: cover/contain appropriately
+* Look premium
+* Load reliably
+* Have good mobile behavior
+* Include proper alt text
+
+If practical, download/cache images into the project's public assets instead of relying entirely on unstable external URLs.
+
+Do not remove the images if the application is restarted.
+
+---
+
+# 3. HOMEPAGE
+
+Upgrade `/` into a premium landing page.
+
+Hero section:
+
+Headline:
+
+"Rent Better. Live Better."
+
+Supporting text explaining flexible furniture, appliance and electronics rentals.
+
+Include:
+
+* Large premium lifestyle image
+* Search bar
+* Search suggestions
+* CTA: "Explore Rentals"
+* Secondary CTA: "How RentEase Works"
+
+Add:
+
+### Popular Categories
+
+Visual category cards with images:
+
+* Furniture
+* Appliances
+* Electronics
+* Office
+* Bedroom
+* Living Room
+
+### Featured Rentals
+
+Show 6–8 attractive products with real images.
+
+Each card:
+
+* Image
+* Wishlist button
+* Badge
+* Product name
+* Category
+* Rating
+* Monthly price
+* "View Details"
+
+### How RentEase Works
+
+3 or 4 steps:
+
+1. Choose what you need
+2. Select your rental plan
+3. Get it delivered
+4. Return or renew when you want
+
+Use clean icons and subtle animations.
+
+### Why RentEase
+
+Examples:
+
+* Flexible monthly plans
+* Free/fast delivery
+* Easy maintenance
+* No long-term commitment
+* Verified products
+* Easy returns
+
+### Testimonials
+
+Create a polished testimonial section with realistic placeholder customer names and reviews.
+
+### CTA section
+
+"Your next home starts here."
+
+Button:
+
+"Explore Rentals"
+
+---
+
+# 4. EXPLORE / PRODUCTS PAGE
+
+Keep and significantly improve the existing `/products` implementation.
+
+It should contain:
+
+* Premium page header
+* Search
+* Category navigation
+* Filter controls
+* Price filtering
+* Sorting
+* Product count
+* Product grid
+* Real product images
+* Wishlist
+* Ratings
+* Monthly rental price
+* Original/reference price where appropriate
+* Badges
+* City/availability
+* View Details
+
+Desktop:
+
+* Filter sidebar
+* Product grid
+
+Mobile:
+
+* Filter button
+* Sort button
+* Bottom sheet/modal filter experience
+
+Search must actually work.
+
+Filters must actually work.
+
+Sorting must actually work.
+
+---
+
+# 5. PRODUCT DETAILS PAGE
+
+Now implement the complete product details experience.
+
+Use route:
+
+`/products/:id`
+
+Create a premium product page.
+
+Layout:
+
+Left:
+
+* Large product image
+* Thumbnail gallery
+* Image navigation
+
+Right:
+
+* Product name
+* Category
+* Rating
+* Reviews
+* Availability
+* Location
+* Monthly rental price
+* Security deposit if available
+* Rental duration selector
+* Quantity if relevant
+* Add to Cart
+* Rent Now
+* Wishlist
+
+Below:
+
+### Product description
+
+### Specifications
+
+Example:
+
+Brand
+Dimensions
+Color
+Condition
+Warranty
+Delivery time
+
+### What's included
+
+### Rental benefits
+
+### Delivery information
+
+### Reviews
+
+### Related products
+
+The "View Details" buttons from `/products` MUST navigate here.
+
+---
+
+# 6. CART
+
+Upgrade the existing `/cart` page into a real rental cart.
+
+Show:
+
+* Product image
+* Product name
+* Rental duration
+* Monthly price
+* Quantity
+* Remove
+* Wishlist/move to wishlist
+
+Order summary:
+
+* Monthly rental
+* Security deposit
+* Delivery
+* Taxes
+* Total
+
+CTA:
+
+"Proceed to Checkout"
+
+Empty cart should have a polished empty state and CTA back to Explore.
+
+---
+
+# 7. CHECKOUT
+
+If there is no checkout page, create one.
+
+Route:
+
+`/checkout`
+
+Create a realistic checkout UI.
+
+Sections:
+
+### Delivery Address
+
+Name
+Phone
+Address
+City
+State
+Pincode
+
+### Rental Plan
+
+1 month
+3 months
+6 months
+12 months
+
+### Payment Method
+
+Card
+UPI
+Net Banking
+Cash/other placeholder if appropriate
+
+### Order Summary
+
+Show selected products and total.
+
+Final CTA:
+
+"Confirm Rental"
+
+IMPORTANT:
+
+This is a frontend demonstration.
+
+Do NOT implement real payment processing.
+
+Instead show a professional simulated confirmation state after submission.
+
+---
+
+# 8. RENTAL CONFIRMATION
+
+After confirming a rental, show:
+
+"Your rental is confirmed!"
+
+Include:
+
+* Order/rental ID
+* Delivery date
+* Product summary
+* Total
+* Rental duration
+
+Buttons:
+
+"View Dashboard"
+
+"Continue Shopping"
+
+---
+
+# 9. LOGIN / REGISTER
+
+Upgrade existing `/login` and `/register`.
+
+Premium authentication screens.
+
+Login:
+
+* Email
+* Password
+* Remember me
+* Forgot password
+* Sign In
+* Continue with Google UI
+
+Register:
+
+* Name
+* Email
+* Password
+* Confirm password
+* Create Account
+
+Use proper validation UI.
+
+Do NOT implement real OAuth unless already available.
+
+These can remain frontend/demo authentication flows.
+
+---
+
+# 10. USER DASHBOARD
+
+Upgrade `/dashboard`.
+
+Create a professional customer dashboard.
+
+Sidebar/navigation:
+
+* Overview
+* Active Rentals
+* Orders
+* Wishlist
+* Addresses
+* Profile
+* Settings
+
+Dashboard overview:
+
+"Good morning, [User]"
+
+Cards:
+
+Active Rentals
+Upcoming Deliveries
+Total Orders
+Wishlist
+
+### Active Rentals
+
+Product image
+Product name
+Monthly cost
+Rental period
+Next payment
+Delivery/status
+
+### Upcoming Delivery
+
+Show delivery tracking/progress:
+
+Confirmed → Preparing → Out for delivery → Delivered
+
+### Recent Orders
+
+Show realistic order history.
+
+---
+
+# 11. WISHLIST
+
+Make wishlist functionality actually useful.
+
+Users should be able to click the heart on:
+
+* Homepage products
+* Explore products
+* Product details
+
+Wishlist state should update consistently.
+
+Create a polished wishlist section in the dashboard or route if appropriate.
+
+---
+
+# 12. NAVBAR
+
+Upgrade the existing Navbar further.
+
+Desktop:
+
+RentEase logo
+
+Home
+Explore
+Categories
+How It Works
+
+Right side:
+
+Search
+Wishlist
+Cart with badge
+Sign In
+Get Started
+
+Mobile:
+
+Hamburger navigation
+Search
+Cart
+Wishlist
+
+Navbar should remain sticky.
+
+Active route should be clearly indicated.
+
+---
+
+# 13. CATEGORIES
+
+Create a premium category experience.
+
+Categories:
+
+Furniture
+Appliances
+Electronics
+Office
+Bedroom
+Living Room
+Kitchen
+
+Each category should have:
+
+* Image
+* Name
+* Short description
+* Number of available rentals
+
+Clicking a category should navigate to `/products?category=...`.
+
+---
+
+# 14. FOOTER
+
+Keep the existing premium Footer but improve it if necessary.
+
+Columns:
+
+RentEase
+Rent
+Company
+Support
+Contact
+
+Include:
+
+* Logo
+* Short description
+* Social icons
+* Email
+* Phone
+* Service area
+
+Newsletter:
+
+"Get rental deals in your inbox"
+
+Email input + Subscribe
+
+Bottom:
+
+© RentEase
+
+Privacy
+Terms
+Refund Policy
+
+---
+
+# 15. RESPONSIVE DESIGN
+
+This is extremely important.
+
+Test:
+
+Desktop:
+1440px+
+
+Laptop:
+1024px
+
+Tablet:
+768px
+
+Mobile:
+375px
+390px
+430px
+
+Nothing should overflow horizontally.
+
+Mobile navigation must work.
+
+Product cards must resize correctly.
+
+Images must remain attractive.
+
+Filters must be usable on mobile.
+
+---
+
+# 16. ANIMATIONS
+
+Use subtle animations only.
+
+Examples:
+
+* Card hover lift
+* Image scale on hover
+* Button transitions
+* Fade/slide page sections
+* Wishlist heart animation
+* Mobile menu animation
+
+If `framer-motion` is already installed, reuse it.
+
+Do not add unnecessary animation libraries.
+
+---
+
+# 17. PRODUCT DATA
+
+Expand the existing catalog if necessary.
+
+Create a realistic catalog of approximately 20–30 products.
+
+Products should cover:
+
+Furniture
+Appliances
+Electronics
+Office
+Bedroom
+Living Room
+Kitchen
+
+Each product should have:
+
+* id
+* name
+* category
+* subcategory
+* description
+* image
+* monthlyPrice
+* originalPrice
+* rating
+* reviewCount
+* city
+* badge
+* availability
+* specifications
+* features
+
+Use consistent realistic Indian rental pricing in ₹.
+
+Examples:
+
+Sofa:
+₹1,499/month
+
+Refrigerator:
+₹1,899/month
+
+Washing Machine:
+₹1,299/month
+
+Laptop:
+₹2,499/month
+
+Office Chair:
+₹699/month
+
+Do not make every price identical.
+
+---
+
+# 18. DATA CONSISTENCY
+
+Use the same product data throughout the application.
+
+Homepage
+Products
+Product Details
+Wishlist
+Cart
+Checkout
+Dashboard
+
+must reference the same product objects.
+
+Do not duplicate inconsistent product information across pages.
+
+---
+
+# 19. UX DETAILS
+
+Add proper:
+
+* Loading states
+* Empty states
+* Error states
+* Hover states
+* Focus states
+* Disabled states
+* Success messages
+* Toast/feedback where appropriate
+
+Forms should have basic validation.
+
+Buttons should provide visual feedback.
+
+---
+
+# 20. SEO / METADATA
+
+Update:
+
+Page titles
+Meta descriptions
+Favicon
+
+Examples:
+
+RentEase — Premium Furniture & Appliance Rentals
+
+RentEase | Explore Rentals
+
+RentEase | Product Details
+
+RentEase | Cart
+
+etc.
+
+---
+
+# 21. ACCESSIBILITY
+
+Use:
+
+* Semantic HTML
+* Accessible buttons
+* Proper labels
+* Alt text for images
+* Keyboard focus states
+* Sufficient contrast
+
+---
+
+# 22. IMPORTANT EXISTING PROJECT RULES
+
+DO NOT:
+
+* Rebuild the entire project from scratch
+* Delete the existing frontend
+* Remove existing routes unnecessarily
+* Remove existing components unnecessarily
+* Remove existing assets
+* Break the working Replit configuration
+* Change the Vite/Replit port configuration
+* Add unnecessary dependencies
+* Implement real payment processing
+* Implement real authentication unless already configured
+* Automatically continue into unrelated backend/database work
+
+Reuse existing:
+
+`frontend/src/constants/theme.js`
+
+existing components
+
+existing Navbar
+
+existing Footer
+
+existing routing
+
+existing design system
+
+existing product data
+
+---
+
+# 23. BUILD QUALITY
+
+Before finishing:
+
+Run:
+
+`npm run build`
+
+Then:
+
+`npm run lint`
+
+Fix ALL errors caused by your implementation.
+
+Start the Replit workflow.
+
+Open and visually verify:
+
+`/`
+
+`/products`
+
+`/products/:id`
+
+`/cart`
+
+`/checkout`
+
+`/login`
+
+`/register`
+
+`/dashboard`
+
+Test navigation between them.
+
+Test:
+
+* Search
+* Filters
+* Sorting
+* Wishlist
+* Add to cart
+* Cart totals
+* Product details navigation
+* Checkout demo flow
+* Responsive navigation
+
+---
+
+# FINAL QUALITY BAR
+
+Do NOT stop after making technically functional pages.
+
+Visually inspect the application.
+
+If something looks like:
+
+* placeholder content
+* empty page
+* basic student project
+* generic template
+* missing images
+* inconsistent spacing
+* broken responsive layout
+* unfinished section
+
+fix it before reporting completion.
+
+The final RentEase website should look like a polished startup MVP that I can confidently show in my portfolio, college project presentation, internship applications, and demonstrations.
+
+IMPLEMENT THE WEBSITE NOW.
+
+Do not ask me to manually code anything.
+
+Do not stop after analysis.
+
+Do not just tell me what you would do.
+
+Actually modify the existing project and verify it.
+
+When finished, provide:
+
+1. Files changed
+2. Features implemented
+3. Number of products/images added
+4. Routes implemented
+5. Build result
+6. Lint result
+7. Any remaining limitations
