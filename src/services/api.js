@@ -4,13 +4,29 @@
  * Coexists safely with client-side state and catalog fallbacks.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+export const getApiBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl.trim() !== '') {
+    return envUrl.trim().replace(/\/+$/, '');
+  }
+  return '/api';
+};
+
+export const buildApiUrl = (endpoint) => {
+  const base = getApiBaseUrl();
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+
+  if (base.endsWith('/api') && cleanEndpoint.startsWith('/api')) {
+    return `${base}${cleanEndpoint.slice(4)}`;
+  }
+  return `${base}${cleanEndpoint}`;
+};
 
 /**
  * Get stored JWT auth token from localStorage
  */
 export const getAuthToken = () => {
-  return localStorage.getItem('rentease_token');
+  return localStorage.getItem('rentease_jwt') || localStorage.getItem('rentease_token');
 };
 
 /**
@@ -18,8 +34,10 @@ export const getAuthToken = () => {
  */
 export const setAuthToken = (token) => {
   if (token) {
+    localStorage.setItem('rentease_jwt', token);
     localStorage.setItem('rentease_token', token);
   } else {
+    localStorage.removeItem('rentease_jwt');
     localStorage.removeItem('rentease_token');
   }
 };
@@ -40,9 +58,19 @@ async function request(endpoint, options = {}) {
     headers,
   };
 
+  const fullUrl = buildApiUrl(endpoint);
+
   try {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
-    const data = await response.json().catch(() => null);
+    const response = await fetch(fullUrl, config);
+    const contentType = response.headers.get('content-type') || '';
+    let data = null;
+
+    if (contentType.includes('application/json')) {
+      data = await response.json().catch(() => null);
+    } else {
+      const text = await response.text().catch(() => '');
+      data = { message: text || `HTTP error ${response.status}` };
+    }
 
     if (!response.ok) {
       const error = new Error(data?.message || `HTTP error ${response.status}`);

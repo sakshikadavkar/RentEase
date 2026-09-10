@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { RentalContext } from './RentalContext';
+import { buildApiUrl } from '../services/api';
 
 export function RentalProvider({ children }) {
   // 1. Auth Token & User State
@@ -64,12 +65,22 @@ export function RentalProvider({ children }) {
       headers['Authorization'] = `Bearer ${currentToken}`;
     }
 
-    const response = await fetch(url, {
+    const apiUrl = buildApiUrl(url);
+
+    const response = await fetch(apiUrl, {
       ...options,
       headers,
     });
 
-    const data = await response.json().catch(() => ({}));
+    const contentType = response.headers.get('content-type') || '';
+    let data;
+    if (contentType.includes('application/json')) {
+      data = await response.json().catch(() => ({}));
+    } else {
+      const text = await response.text().catch(() => '');
+      data = { message: text || `HTTP error ${response.status}` };
+    }
+
     if (!response.ok) {
       const errorMsg = data.message || `Request failed with status ${response.status}`;
       const err = new Error(errorMsg);
@@ -84,11 +95,16 @@ export function RentalProvider({ children }) {
   // Fetch User Profile from Server
   const fetchUserProfile = useCallback(async (authToken) => {
     try {
-      const res = await fetch('/api/auth/me', {
+      const fullUrl = buildApiUrl('/auth/me');
+      const res = await fetch(fullUrl, {
         headers: { Authorization: `Bearer ${authToken}` },
       });
-      const data = await res.json();
-      if (res.ok && data.success && data.data?.user) {
+      const contentType = res.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        return;
+      }
+      const data = await res.json().catch(() => null);
+      if (res.ok && data?.success && data.data?.user) {
         setUser(data.data.user);
         localStorage.setItem('rentease_user', JSON.stringify(data.data.user));
       }
@@ -174,7 +190,8 @@ export function RentalProvider({ children }) {
       if (!currentToken) {
         // Auto-login Alex Morgan as initial demo account to provide instant live database experience
         try {
-          const res = await fetch('/api/auth/login', {
+          const fullUrl = buildApiUrl('/auth/login');
+          const res = await fetch(fullUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -182,14 +199,17 @@ export function RentalProvider({ children }) {
               password: 'Password123!',
             }),
           });
-          const data = await res.json();
-          if (res.ok && data.success && data.data?.token) {
-            currentToken = data.data.token;
-            setToken(currentToken);
-            localStorage.setItem('rentease_jwt', currentToken);
-            if (data.data.user) {
-              setUser(data.data.user);
-              localStorage.setItem('rentease_user', JSON.stringify(data.data.user));
+          const contentType = res.headers.get('content-type') || '';
+          if (contentType.includes('application/json')) {
+            const data = await res.json().catch(() => null);
+            if (res.ok && data?.success && data.data?.token) {
+              currentToken = data.data.token;
+              setToken(currentToken);
+              localStorage.setItem('rentease_jwt', currentToken);
+              if (data.data.user) {
+                setUser(data.data.user);
+                localStorage.setItem('rentease_user', JSON.stringify(data.data.user));
+              }
             }
           }
         } catch (e) {
@@ -293,14 +313,27 @@ export function RentalProvider({ children }) {
 
   // Authentication: Login
   const login = async (email, password) => {
-    const res = await fetch('/api/auth/login', {
+    const fullUrl = buildApiUrl('/auth/login');
+    const res = await fetch(fullUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
-    const data = await res.json();
-    if (!res.ok || !data.success) {
-      throw new Error(data.message || 'Login failed. Please check your credentials.');
+
+    const contentType = res.headers.get('content-type') || '';
+    let data;
+    if (contentType.includes('application/json')) {
+      data = await res.json().catch(() => null);
+    } else {
+      const text = await res.text().catch(() => '');
+      if (res.status === 404) {
+        throw new Error('API route /api/auth/login not found on server (404). Please verify backend deployment.');
+      }
+      throw new Error(`Authentication server returned error (${res.status}): ${text.slice(0, 100)}`);
+    }
+
+    if (!res.ok || !data?.success) {
+      throw new Error(data?.message || 'Login failed. Please check your credentials.');
     }
     const authToken = data.data.token;
     setToken(authToken);
@@ -319,14 +352,27 @@ export function RentalProvider({ children }) {
 
   // Authentication: Register
   const register = async (email, password, name, city = 'Bengaluru', phone = '') => {
-    const res = await fetch('/api/auth/register', {
+    const fullUrl = buildApiUrl('/auth/register');
+    const res = await fetch(fullUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password, name, city, phone }),
     });
-    const data = await res.json();
-    if (!res.ok || !data.success) {
-      throw new Error(data.message || 'Registration failed. Please check your inputs.');
+
+    const contentType = res.headers.get('content-type') || '';
+    let data;
+    if (contentType.includes('application/json')) {
+      data = await res.json().catch(() => null);
+    } else {
+      const text = await res.text().catch(() => '');
+      if (res.status === 404) {
+        throw new Error('API route /api/auth/register not found on server (404).');
+      }
+      throw new Error(`Registration server returned error (${res.status}): ${text.slice(0, 100)}`);
+    }
+
+    if (!res.ok || !data?.success) {
+      throw new Error(data?.message || 'Registration failed. Please check your inputs.');
     }
     const authToken = data.data.token;
     setToken(authToken);

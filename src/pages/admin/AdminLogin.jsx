@@ -6,8 +6,8 @@ import { Shield, Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
 export default function AdminLogin() {
   const { login, user, isAdmin } = useRental();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('admin@rentease.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -83,7 +83,7 @@ export default function AdminLogin() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@rentease.com"
+                  placeholder="staff@rentease.com"
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition"
                 />
               </div>
@@ -115,38 +115,6 @@ export default function AdminLogin() {
               <ArrowRight className="h-4 w-4" />
             </button>
           </form>
-
-          {/* Quick Demo Credentials Box */}
-          <div className="mt-8 pt-6 border-t border-slate-800">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-3 text-center">
-              One-Click Seed Accounts
-            </span>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('admin@rentease.com');
-                  setPassword('admin123');
-                }}
-                className="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 text-left transition"
-              >
-                <span className="text-xs font-bold text-white block">Platform Admin</span>
-                <span className="text-[10px] text-slate-500 block truncate">admin@rentease.com</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('tech@rentease.com');
-                  setPassword('tech123');
-                }}
-                className="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 text-left transition"
-              >
-                <span className="text-xs font-bold text-white block">Lead Technician</span>
-                <span className="text-[10px] text-slate-500 block truncate">tech@rentease.com</span>
-              </button>
-            </div>
-          </div>
         </div>
 
         <div className="text-center mt-6">

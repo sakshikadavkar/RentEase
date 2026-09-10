@@ -8,7 +8,19 @@ const app = express();
 
 // Security & Parsing Middleware
 app.use(cors({
-  origin: ENV.CLIENT_URL === '*' ? '*' : [ENV.CLIENT_URL, 'http://localhost:3000', 'http://localhost:5173'],
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (
+      ENV.CLIENT_URL === '*' ||
+      origin === ENV.CLIENT_URL ||
+      origin.endsWith('.vercel.app') ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1')
+    ) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
   credentials: true,
 }));
 
@@ -16,7 +28,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // API Root Info
-app.get('/api', (req, res) => {
+const apiInfoHandler = (req, res) => {
   res.json({
     name: 'RentEase Backend API',
     version: '1.0.0',
@@ -35,10 +47,14 @@ app.get('/api', (req, res) => {
       },
     },
   });
-});
+};
 
-// Mount Routes
+app.get('/api', apiInfoHandler);
+app.get('/', apiInfoHandler);
+
+// Mount Routes (supports both /api/path and /path)
 app.use('/api', routes);
+app.use('/', routes);
 
 // 404 & Global Error Handling
 app.use(notFoundHandler);
