@@ -1,6 +1,7 @@
 import { PRODUCTS } from '../../../src/constants/theme.js';
 import { getPool, checkDbConnection } from '../config/database.js';
 import { runMigrations } from '../models/migrate.js';
+import { ENV } from '../config/env.js';
 import bcrypt from 'bcryptjs';
 
 export const seedDatabase = async () => {
@@ -108,25 +109,52 @@ export const seedDatabase = async () => {
 
     // 2. Seed Default Users with All Roles
     console.log('🌱 Seeding initial users across all roles...');
-    const adminPassword = await bcrypt.hash('Admin@12345', 10);
     const userPassword = await bcrypt.hash('Password123!', 10);
+    const designatedAdminEmail = (process.env.ADMIN_EMAIL || ENV.ADMIN_EMAIL || 'sakshikadavkar171@gmail.com').toLowerCase().trim();
 
     const userRes = await client.query(`
       INSERT INTO users (name, email, password_hash, role, city, is_active)
       VALUES 
-        ('RentEase Administrator', 'admin@rentease.com', $1, 'admin', 'Bengaluru', true),
-        ('Demo Customer', 'customer@rentease.com', $2, 'customer', 'Bengaluru', true),
-        ('Alex Morgan', 'alex.morgan@example.com', $2, 'customer', 'Bengaluru', true),
-        ('Rajesh Sharma (Lead Tech)', 'tech.rajesh@rentease.com', $2, 'technician', 'Bengaluru', true),
-        ('Ramesh Kumar (Logistics)', 'logistics.ramesh@rentease.com', $2, 'logistics', 'Bengaluru', true),
-        ('Priya Patel', 'priya.patel@example.com', $2, 'customer', 'Mumbai', true),
-        ('Vikram Mehta', 'vikram.mehta@example.com', $2, 'customer', 'Delhi NCR', true)
+        ('RentEase Staff', 'admin@rentease.com', $1, 'customer', 'Bengaluru', true),
+        ('Demo Customer', 'customer@rentease.com', $1, 'customer', 'Bengaluru', true),
+        ('Alex Morgan', 'alex.morgan@example.com', $1, 'customer', 'Bengaluru', true),
+        ('Rajesh Sharma (Lead Tech)', 'tech.rajesh@rentease.com', $1, 'technician', 'Bengaluru', true),
+        ('Ramesh Kumar (Logistics)', 'logistics.ramesh@rentease.com', $1, 'logistics', 'Bengaluru', true),
+        ('Priya Patel', 'priya.patel@example.com', $1, 'customer', 'Mumbai', true),
+        ('Vikram Mehta', 'vikram.mehta@example.com', $1, 'customer', 'Delhi NCR', true)
       ON CONFLICT (email) DO UPDATE SET 
         password_hash = EXCLUDED.password_hash,
         role = EXCLUDED.role,
         is_active = EXCLUDED.is_active
       RETURNING id, email, role;
-    `, [adminPassword, userPassword]);
+    `, [userPassword]);
+
+    // SINGLE-ADMIN POLICY:
+    // Ensure designated ADMIN_EMAIL is the sole administrator in PostgreSQL
+    const existingAdminRes = await client.query(
+      `SELECT id, email, role FROM users WHERE LOWER(TRIM(email)) = LOWER(TRIM($1))`,
+      [designatedAdminEmail]
+    );
+
+    if (existingAdminRes.rows.length > 0) {
+      await client.query(
+        `UPDATE users SET role = 'admin', is_active = true WHERE id = $1`,
+        [existingAdminRes.rows[0].id]
+      );
+    } else {
+      await client.query(
+        `INSERT INTO users (name, email, password_hash, role, city, is_active)
+         VALUES ('Sakshi Kadavkar', $1, $2, 'admin', 'Bengaluru', true)
+         ON CONFLICT (email) DO UPDATE SET role = 'admin', is_active = true`,
+        [designatedAdminEmail, userPassword]
+      );
+    }
+
+    // Atomic cleanup: Demote any other accounts that have role = 'admin'
+    await client.query(
+      `UPDATE users SET role = 'customer' WHERE role = 'admin' AND LOWER(TRIM(email)) <> LOWER(TRIM($1))`,
+      [designatedAdminEmail]
+    );
 
     const alexUser = userRes.rows.find(u => u.email === 'alex.morgan@example.com');
     const techUser = userRes.rows.find(u => u.email === 'tech.rajesh@rentease.com');

@@ -1,5 +1,6 @@
 import { getPool } from '../config/database.js';
 import { PRODUCTS } from '../../../src/constants/theme.js';
+import { ENV, isDesignatedAdminEmail } from '../config/env.js';
 
 const getProductFallback = (productId) => {
   return PRODUCTS.find((p) => p.id === productId) || null;
@@ -339,9 +340,34 @@ export const updateAdminUserRole = async (userId, newRole) => {
     throw err;
   }
 
-  // Safety check: Prevent demoting the last admin
-  const targetUser = await pool.query(`SELECT role FROM users WHERE id = $1`, [userId]);
-  if (targetUser.rows[0]?.role === 'admin' && newRole !== 'admin') {
+  const targetUserRes = await pool.query(`SELECT id, email, role FROM users WHERE id = $1`, [userId]);
+  if (targetUserRes.rows.length === 0) {
+    const err = new Error('User not found');
+    err.statusCode = 404;
+    throw err;
+  }
+  const targetUser = targetUserRes.rows[0];
+  const isTargetAdmin = isDesignatedAdminEmail(targetUser.email);
+
+  // SINGLE-ADMIN POLICY:
+  // 1. Only the designated ADMIN_EMAIL is permitted to hold the 'admin' role.
+  if (newRole === 'admin' && !isTargetAdmin) {
+    const err = new Error(
+      `Security policy violation: Only the designated administrator (${ENV.ADMIN_EMAIL}) may hold the admin role.`
+    );
+    err.statusCode = 403;
+    throw err;
+  }
+
+  // 2. The designated administrator cannot be demoted to another role.
+  if (isTargetAdmin && newRole !== 'admin') {
+    const err = new Error('Security policy violation: The designated administrator cannot be demoted.');
+    err.statusCode = 400;
+    throw err;
+  }
+
+  // Safety check: Prevent demoting the last active administrator
+  if (targetUser.role === 'admin' && newRole !== 'admin') {
     const adminCheck = await pool.query(
       `SELECT count(*) FROM users WHERE role = 'admin' AND is_active = true AND id != $1`,
       [userId]
@@ -357,12 +383,6 @@ export const updateAdminUserRole = async (userId, newRole) => {
     `UPDATE users SET role = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2 RETURNING id, name, email, role, is_active`,
     [newRole, userId]
   );
-
-  if (result.rows.length === 0) {
-    const err = new Error('User not found');
-    err.statusCode = 404;
-    throw err;
-  }
 
   return result.rows[0];
 };

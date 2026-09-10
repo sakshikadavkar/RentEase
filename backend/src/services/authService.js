@@ -1,21 +1,11 @@
 import bcrypt from 'bcryptjs';
 import { generateToken } from '../config/jwt.js';
 import { getPool } from '../config/database.js';
+import { isDesignatedAdminEmail } from '../config/env.js';
 
-// In-memory fallback user store when PostgreSQL is unconfigured
+// In-memory fallback user store when PostgreSQL is unconfigured.
+// SECURITY: No default admin account is exposed. Only designated ADMIN_EMAIL may hold admin role.
 const inMemoryUsers = new Map([
-  [
-    'admin@rentease.com',
-    {
-      id: 1,
-      name: 'RentEase Administrator',
-      email: 'admin@rentease.com',
-      password_hash: bcrypt.hashSync('Admin@12345', 10),
-      role: 'admin',
-      city: 'Bengaluru',
-      created_at: new Date().toISOString(),
-    },
-  ],
   [
     'customer@rentease.com',
     {
@@ -39,9 +29,12 @@ const sanitizeUser = (user) => {
   return safeUser;
 };
 
-export const registerUser = async ({ name, email, password, phone = '', city = 'Bengaluru', role = 'customer' }) => {
+export const registerUser = async ({ name, email, password, phone = '', city = 'Bengaluru' }) => {
   const normalizedEmail = email.toLowerCase().trim();
   const pool = getPool();
+
+  // SECURITY: Public registration ALWAYS creates a customer account.
+  const assignedRole = 'customer';
 
   const passwordHash = await bcrypt.hash(password, 10);
 
@@ -59,7 +52,7 @@ export const registerUser = async ({ name, email, password, phone = '', city = '
       `INSERT INTO users (name, email, password_hash, phone, city, role)
        VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING id, name, email, phone, city, role, created_at, updated_at`,
-      [name.trim(), normalizedEmail, passwordHash, phone, city, role]
+      [name.trim(), normalizedEmail, passwordHash, phone, city, assignedRole]
     );
 
     const user = result.rows[0];
@@ -81,7 +74,7 @@ export const registerUser = async ({ name, email, password, phone = '', city = '
       password_hash: passwordHash,
       phone,
       city,
-      role,
+      role: assignedRole,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     };
@@ -126,6 +119,15 @@ export const loginUser = async ({ email, password }) => {
     throw err;
   }
 
+  // SINGLE-ADMIN POLICY ENFORCEMENT:
+  // Only the designated ADMIN_EMAIL is permitted to hold the 'admin' role.
+  if (isDesignatedAdminEmail(user.email)) {
+    user.role = 'admin';
+  } else if (user.role === 'admin') {
+    // If any other account historically had admin, demote to customer
+    user.role = 'customer';
+  }
+
   const token = generateToken({ id: user.id, email: user.email, role: user.role });
   return { user: sanitizeUser(user), token };
 };
@@ -141,11 +143,23 @@ export const getUserById = async (userId) => {
     if (result.rows.length === 0) {
       return null;
     }
-    return result.rows[0];
+    const user = result.rows[0];
+    if (isDesignatedAdminEmail(user.email)) {
+      user.role = 'admin';
+    } else if (user.role === 'admin') {
+      user.role = 'customer';
+    }
+    return user;
   } else {
     for (const u of inMemoryUsers.values()) {
       if (u.id === userId) {
-        return sanitizeUser(u);
+        const userCopy = { ...u };
+        if (isDesignatedAdminEmail(userCopy.email)) {
+          userCopy.role = 'admin';
+        } else if (userCopy.role === 'admin') {
+          userCopy.role = 'customer';
+        }
+        return sanitizeUser(userCopy);
       }
     }
     return null;

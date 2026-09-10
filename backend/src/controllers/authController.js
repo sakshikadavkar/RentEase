@@ -3,14 +3,16 @@ import { successResponse, errorResponse } from '../utils/response.js';
 
 export const register = async (req, res, next) => {
   try {
-    const { name, email, password, phone, city, role } = req.body;
+    const { name, email, password, phone, city } = req.body;
+    // CRITICAL SECURITY: Public registration is strictly locked down.
+    // Client-supplied role is completely ignored; newly registered users are ALWAYS 'customer'.
     const { user, token } = await authService.registerUser({
       name,
       email,
       password,
       phone,
       city,
-      role: role && ['customer', 'admin', 'technician', 'logistics'].includes(role) ? role : 'customer',
+      role: 'customer',
     });
 
     return successResponse(res, {

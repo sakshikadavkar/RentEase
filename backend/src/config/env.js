@@ -17,4 +17,13 @@ export const ENV = {
   JWT_SECRET: process.env.JWT_SECRET || 'rentease_fallback_secret_key_change_in_production',
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '7d',
   CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:3000',
+  ADMIN_EMAIL: (process.env.ADMIN_EMAIL || 'sakshikadavkar171@gmail.com').toLowerCase().trim(),
+};
+
+/**
+ * Normalized email comparison helper to enforce single-admin security policy
+ */
+export const isDesignatedAdminEmail = (email) => {
+  if (!email || typeof email !== 'string') return false;
+  return email.toLowerCase().trim() === ENV.ADMIN_EMAIL;
 };

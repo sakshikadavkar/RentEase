@@ -2,6 +2,7 @@ import http from 'http';
 import app from '../app.js';
 import { checkDbConnection } from '../config/database.js';
 import { seedDatabase } from './seed.js';
+import { ENV } from '../config/env.js';
 
 const runPhase3Tests = async () => {
   console.log('🧪 Starting Phase 3 Admin Backend Verification...');
@@ -21,11 +22,12 @@ const runPhase3Tests = async () => {
   console.log(`Server listening on ${baseUrl}`);
 
   try {
-    // 1. Admin Login
+    // 1. Admin Login (Using designated ADMIN_EMAIL)
+    const adminEmail = (process.env.ADMIN_EMAIL || ENV.ADMIN_EMAIL || 'sakshikadavkar171@gmail.com').toLowerCase().trim();
     const adminLoginRes = await fetch(`${baseUrl}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'admin@rentease.com', password: 'Admin@12345' }),
+      body: JSON.stringify({ email: adminEmail, password: 'Password123!' }),
     });
     const adminLoginData = await adminLoginRes.json();
     console.log('1. Admin Logged In:', adminLoginData.success, 'Role:', adminLoginData.data?.user?.role);
