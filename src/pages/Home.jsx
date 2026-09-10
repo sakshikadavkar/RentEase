@@ -1,5 +1,21 @@
 import { Fragment, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import {
+  Search,
+  ArrowRight,
+  Truck,
+  ShieldCheck,
+  Wrench,
+  Calendar,
+  MapPin,
+  RotateCcw,
+  Check,
+  Sparkles,
+  Building2,
+  ChevronLeft,
+  ChevronRight,
+  Compass,
+} from 'lucide-react';
 
 import ProductCard from '../components/ProductCard';
 import ProductImage from '../components/ProductImage';
@@ -9,58 +25,75 @@ import { CATEGORIES, HERO_IMAGE, PRODUCTS } from '../constants/theme';
 
 const benefits = [
   {
-    title: 'Flexible monthly plans',
-    description: 'Choose 1 to 12 months with easy month-to-month extensions or early upgrades.',
-    tag: 'Flexibility',
+    icon: Calendar,
+    title: 'Flexible Monthly Plans',
+    description: 'Choose 1 to 12 months with easy month-to-month extensions, upgrades, or swaps anytime.',
+    tag: '1–12 Months',
+    color: 'text-blue-600 bg-blue-50 border-blue-100',
   },
   {
-    title: 'Free 48h delivery & setup',
-    description: 'Our white-glove delivery crew unpacks, installs, and tests every piece in your home.',
-    tag: 'Convenience',
+    icon: Truck,
+    title: 'Free 48h Delivery & Setup',
+    description: 'Our white-glove delivery crew unpacks, installs, and inspects every piece in your home for free.',
+    tag: 'White-Glove',
+    color: 'text-indigo-600 bg-indigo-50 border-indigo-100',
   },
   {
-    title: '100% Maintenance covered',
-    description: 'Periodic servicing, appliance tune-ups, and repairs are included at zero extra cost.',
-    tag: 'Worry-free',
+    icon: Wrench,
+    title: '100% Maintenance Covered',
+    description: 'Periodic servicing, appliance tune-ups, and repair visits are included at zero extra cost.',
+    tag: 'Zero Hassle',
+    color: 'text-emerald-600 bg-emerald-50 border-emerald-100',
   },
   {
-    title: 'No ownership commitment',
-    description: 'Moving cities or redecorating? Swap or return your items whenever your life changes.',
-    tag: 'Freedom',
-  },
-  {
-    title: 'Sanitized & verified quality',
-    description: 'Each item passes a rigorous 20-point quality check and steam cleaning before delivery.',
-    tag: 'Pristine',
-  },
-  {
-    title: 'Zero-hassle returns & refund',
-    description: 'Prompt security deposit refund directly to your bank account within 3 working days.',
-    tag: 'Transparent',
+    icon: MapPin,
+    title: '12 Major Cities Supported',
+    description: 'Local delivery hubs with rapid 48-hour SLAs across Bengaluru, Mumbai, Delhi NCR, and 9 more.',
+    tag: 'Pan-India',
+    color: 'text-purple-600 bg-purple-50 border-purple-100',
   },
 ];
 
 const steps = [
   {
     number: '01',
-    title: 'Choose what you need',
-    description: 'Browse 900+ curated furniture, appliances, and electronics for living rooms, bedrooms, or home offices.',
+    icon: Compass,
+    title: 'Browse 900+ Rentals',
+    description: 'Discover designer living rooms, ergonomic work offices, and energy-smart appliances tailored for your space.',
   },
   {
     number: '02',
-    title: 'Pick your tenure',
-    description: 'Select a 1, 3, 6, or 12-month tenure with deeper monthly discounts on longer flexible plans.',
+    icon: Calendar,
+    title: 'Choose Your Plan',
+    description: 'Select a 1, 3, 6, or 12-month tenure with ₹0 security deposit on plans of 6 months or longer.',
   },
   {
     number: '03',
-    title: 'Free doorstep setup',
-    description: 'Our trained technicians deliver and assemble everything at your requested time slot for free.',
+    icon: Truck,
+    title: 'Get 48h Doorstep Setup',
+    description: 'Our certified technicians unpack, assemble, and position everything at your scheduled time slot for free.',
   },
   {
     number: '04',
-    title: 'Swap, renew or return',
-    description: 'Keep your favorites, upgrade to newer models, or schedule a free pickup when you move.',
+    icon: RotateCcw,
+    title: 'Enjoy, Renew or Return',
+    description: 'Keep your favorites, upgrade to newer models, or schedule free doorstep pickup whenever you move.',
   },
+];
+
+const SUPPORTED_CITIES = [
+  { name: 'Bengaluru', state: 'Karnataka', popular: 'HSR, Indiranagar, Whitefield' },
+  { name: 'Mumbai', state: 'Maharashtra', popular: 'Bandra, Powai, Andheri' },
+  { name: 'Delhi NCR', state: 'Delhi', popular: 'Connaught Place, Saket, Dwarka' },
+  { name: 'Hyderabad', state: 'Telangana', popular: 'Gachibowli, Madhapur, Hitec City' },
+  { name: 'Pune', state: 'Maharashtra', popular: 'Koregaon Park, Hinjawadi, Baner' },
+  { name: 'Chennai', state: 'Tamil Nadu', popular: 'OMR, Adyar, Anna Nagar' },
+  { name: 'Kolkata', state: 'West Bengal', popular: 'Salt Lake, New Town, Park Street' },
+  { name: 'Jaipur', state: 'Rajasthan', popular: 'Malviya Nagar, Vaishali Nagar' },
+  { name: 'Ahmedabad', state: 'Gujarat', popular: 'SG Highway, Bodakdev, Satellite' },
+  { name: 'Noida', state: 'Uttar Pradesh', popular: 'Sector 62, Sector 137, Expressway' },
+  { name: 'Gurgaon', state: 'Haryana', popular: 'Cyber City, Golf Course Rd, Sohna Rd' },
+  { name: 'Chandigarh', state: 'Punjab', popular: 'Sector 17, Sector 35, Mohali Hub' },
 ];
 
 const testimonials = [
@@ -187,46 +220,29 @@ const HOME_COLLECTIONS = (() => {
 const editorialSections = [
   {
     eyebrow: 'The Furniture Edit',
-    title: 'Make your space yours.',
-    copy: 'Curated designer furniture crafted for comfort and longevity, without locking you into ownership.',
+    title: 'Make your space uniquely yours.',
+    copy: 'Curated designer furniture crafted for comfort and longevity, without locking your capital into depreciating ownership.',
     cta: 'Explore Furniture',
     to: '/products?category=Furniture',
     image: PRODUCTS.find((product) => product.category === 'Living Room')?.image || HERO_IMAGE,
   },
   {
-    eyebrow: 'A Fresh Start',
-    title: 'Everything your new home needs.',
-    copy: 'Bring together bedroom comfort, kitchen utility, and dependable appliances in one flexible monthly plan.',
+    eyebrow: 'A Fresh Chapter',
+    title: 'Everything your home needs in one place.',
+    copy: 'Bring together bedroom serenity, kitchen utility, and dependable appliances under one predictable, flexible monthly plan.',
     cta: 'Explore Bedroom Essentials',
     to: '/products?category=Bedroom',
     image: PRODUCTS.find((product) => product.category === 'Appliances')?.image || HERO_IMAGE,
   },
   {
-    eyebrow: 'The Focus Edit',
-    title: 'Build your perfect workspace.',
-    copy: 'Thoughtful ergonomic desks, lumbar-support chairs, and connected monitors for high-performance remote work.',
+    eyebrow: 'The Productivity Edit',
+    title: 'Build your focused home workspace.',
+    copy: 'Thoughtful ergonomic desks, lumbar-support task chairs, and dual monitors engineered for healthy, high-performance work.',
     cta: 'Explore Workspaces',
     to: '/products?category=Office',
     image: PRODUCTS.find((product) => product.category === 'Office')?.image || HERO_IMAGE,
   },
 ];
-
-function ArrowIcon() {
-  return (
-    <svg className="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M4 10h12m0 0-4-4m4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg className="h-4.5 w-4.5 text-slate-400" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="10.75" cy="10.75" r="6.25" stroke="currentColor" strokeWidth="1.8" />
-      <path d="m16 16 4.25 4.25" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 function CarouselArrow({ direction, onClick }) {
   return (
@@ -236,13 +252,7 @@ function CarouselArrow({ direction, onClick }) {
       className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-xs transition-all duration-200 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
       aria-label={direction < 0 ? 'See previous products' : 'See next products'}
     >
-      <svg className="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-        {direction < 0 ? (
-          <path d="M12.5 15l-5-5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        ) : (
-          <path d="M7.5 5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        )}
-      </svg>
+      {direction < 0 ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
     </button>
   );
 }
@@ -282,7 +292,7 @@ function CollectionSection({ collection }) {
             className="hidden items-center gap-1.5 text-xs font-bold text-blue-600 transition hover:text-blue-700 sm:flex"
           >
             <span>View all {collection.title}</span>
-            <ArrowIcon />
+            <ArrowRight className="h-3.5 w-3.5" />
           </Link>
           <div className="flex items-center gap-1.5">
             <CarouselArrow direction={-1} onClick={() => scrollCarousel(-1)} />
@@ -293,14 +303,14 @@ function CollectionSection({ collection }) {
 
       <div
         ref={carouselRef}
-        className="no-scrollbar mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1"
+        className="no-scrollbar mt-6 flex snap-x snap-mandatory gap-4.5 overflow-x-auto pb-4 pt-1"
         tabIndex={0}
         aria-label={`${collection.title} carousel`}
       >
         {collection.products.map((product) => (
           <div
             key={product.id}
-            className="w-[280px] shrink-0 snap-start sm:w-[300px] lg:w-[calc((100%-48px)/4)]"
+            className="w-[280px] shrink-0 snap-start sm:w-[300px] lg:w-[calc((100%-54px)/4)]"
           >
             <ProductCard product={product} />
           </div>
@@ -310,9 +320,10 @@ function CollectionSection({ collection }) {
       <div className="mt-2 flex justify-center sm:hidden">
         <Link
           to={`/products?category=${encodeURIComponent(categoryName)}`}
-          className="text-xs font-bold text-blue-600 hover:underline"
+          className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:underline"
         >
-          View all {collection.title} →
+          <span>View all {collection.title}</span>
+          <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
     </section>
@@ -324,31 +335,36 @@ function CategoryTile({ category }) {
   return (
     <Link
       to={`/products?category=${encodeURIComponent(title)}`}
-      className="group relative flex flex-col justify-end overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-900 p-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl sm:p-6"
+      className="group relative flex flex-col justify-end overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-900 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-900/10 sm:p-6"
     >
       <ProductImage
         src={category.image}
         alt={`${title} rentals`}
         className="absolute inset-0 h-full w-full"
-        imageClassName="transition duration-700 group-hover:scale-105"
+        imageClassName="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent transition duration-300 group-hover:from-slate-950/95" />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/35 to-transparent transition-opacity duration-300 group-hover:from-slate-950/95" />
 
       <div className="relative z-10">
         <div className="flex items-center justify-between gap-2">
-          <h3 className="text-lg font-bold tracking-tight text-white transition-colors group-hover:text-cyan-200 sm:text-xl">
+          <h3 className="text-lg font-bold tracking-tight text-white transition-colors group-hover:text-blue-200 sm:text-xl">
             {title}
           </h3>
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-xs transition-transform duration-300 group-hover:translate-x-1 group-hover:bg-blue-600">
-            <ArrowIcon />
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm transition-all duration-300 group-hover:translate-x-1 group-hover:bg-blue-600">
+            <ArrowRight className="h-4 w-4" />
           </span>
         </div>
-        <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-300">
+        <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-300">
           {category.description}
         </p>
-        <span className="mt-3 inline-block text-[11px] font-semibold text-cyan-300">
-          {category.count || '100+ items'}
-        </span>
+        <div className="mt-3 flex items-center justify-between">
+          <span className="inline-flex items-center rounded-md bg-blue-500/20 px-2 py-0.5 text-[11px] font-semibold text-cyan-200 backdrop-blur-xs border border-cyan-400/20">
+            {category.count || '100+ items'}
+          </span>
+          <span className="text-[11px] font-semibold text-slate-400 group-hover:text-white transition-colors">
+            Browse collection →
+          </span>
+        </div>
       </div>
     </Link>
   );
@@ -357,15 +373,15 @@ function CategoryTile({ category }) {
 function EditorialSection({ section, reverse = false }) {
   return (
     <section
-      className={`mt-16 sm:mt-20 grid overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-950 text-white shadow-xl md:grid-cols-2 ${
+      className={`mt-16 sm:mt-20 grid overflow-hidden rounded-[2.5rem] border border-slate-800 bg-slate-950 text-white shadow-2xl md:grid-cols-2 ${
         reverse ? 'md:[&>*:first-child]:order-2' : ''
       }`}
     >
       <div className="flex flex-col justify-center p-8 sm:p-12 lg:p-14">
-        <Badge variant="dark" size="sm" className="w-fit bg-white/10 text-cyan-200 border-white/20">
+        <Badge variant="dark" size="sm" className="w-fit bg-white/10 text-blue-200 border-white/20 font-bold">
           {section.eyebrow}
         </Badge>
-        <h2 className="mt-4 max-w-md text-3xl font-extrabold tracking-tight sm:text-4xl">
+        <h2 className="mt-4 max-w-md text-3xl font-extrabold tracking-tight sm:text-4xl leading-tight">
           {section.title}
         </h2>
         <p className="mt-4 max-w-md text-sm leading-7 text-slate-300 sm:text-base">
@@ -377,7 +393,7 @@ function EditorialSection({ section, reverse = false }) {
             className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-xs font-bold text-slate-950 shadow-md transition duration-200 hover:-translate-y-0.5 hover:bg-blue-50 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
           >
             <span>{section.cta}</span>
-            <ArrowIcon />
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
@@ -411,239 +427,213 @@ export default function Home() {
   };
 
   return (
-    <div className="pb-16 space-y-12 sm:space-y-16">
-      {/* Editorial Hero Section */}
-      <section className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 lg:p-10 shadow-xs">
-        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-10">
-          {/* Left Column: Headline, Copy, Trust & Actions */}
-          <div className="relative z-10 lg:col-span-7 flex flex-col justify-center">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700">
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+    <div className="pb-16 space-y-14 sm:space-y-20">
+      {/* 1. UPGRADED PREMIUM HERO SECTION (ABOVE-THE-FOLD COMPOSITION) */}
+      <section className="relative overflow-hidden rounded-[2.5rem] border border-slate-200/90 bg-[#faf9f6] bg-gradient-to-br from-[#faf9f6] via-[#f7f8fd] to-[#f5f4fc] p-5 sm:p-7 md:p-8 lg:p-10 shadow-sm animate-hero-fade">
+        {/* Layered subtle radial gradient lights (soft blue, indigo, lavender - no neon) */}
+        <div className="pointer-events-none absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full bg-blue-300/15 blur-[85px]" />
+        <div className="pointer-events-none absolute top-1/4 -right-20 h-[450px] w-[450px] rounded-full bg-indigo-300/15 blur-[95px]" />
+        <div className="pointer-events-none absolute -bottom-20 left-1/3 h-[380px] w-[380px] rounded-full bg-purple-200/15 blur-[85px]" />
+
+        {/* Primary Hero Composition: Left 50% Text & CTAs, Right 50% Large Lifestyle Image */}
+        <div className="grid items-center gap-8 md:grid-cols-2 lg:gap-10 xl:gap-12">
+          {/* LEFT ~50%: Eyebrow, Headline, Description, Coordinated CTAs & Trust Line */}
+          <div className="relative z-10 flex flex-col justify-center">
+            {/* Eyebrow Pill */}
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-blue-200/80 bg-white/90 px-3.5 py-1 text-xs font-bold text-blue-700 shadow-2xs backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse" />
               <span>Flexible rental living in 12 major cities</span>
             </div>
 
-            <h1 className="mt-4 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl lg:text-5xl leading-[1.12]">
+            {/* RentEase Headline */}
+            <h1 className="mt-3.5 sm:mt-4 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl lg:text-[2.65rem] xl:text-5xl leading-[1.12]">
               Rent quality furniture & appliances.{' '}
-              <span className="text-blue-600">Zero commitment.</span>
+              <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
+                Zero commitment.
+              </span>
             </h1>
 
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-600 sm:text-base">
+            {/* Description */}
+            <p className="mt-3 sm:mt-3.5 max-w-lg text-sm sm:text-base leading-relaxed text-slate-600">
               Upgrade your home with 900+ curated furniture items and top-tier appliances. Enjoy free 48-hour delivery, professional assembly, and complete maintenance coverage on flexible monthly plans.
             </p>
 
-            {/* CTA Buttons */}
-            <div className="mt-6 flex flex-wrap items-center gap-3">
+            {/* Coordinated Primary & Secondary CTAs */}
+            <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <Link
                 to="/products"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 text-sm font-semibold text-white shadow-xs transition duration-150 hover:bg-blue-600 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                className="group inline-flex h-11 sm:h-12 items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 sm:px-6 text-xs sm:text-sm font-bold text-white shadow-sm shadow-slate-950/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-600 hover:shadow-md hover:shadow-blue-600/20 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               >
                 <span>Explore 900+ Rentals</span>
-                <ArrowIcon />
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/products?tab=categories"
-                className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-700 shadow-xs transition duration-150 hover:border-blue-300 hover:text-blue-600 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-100"
+                className="inline-flex h-11 sm:h-12 items-center justify-center rounded-xl border border-slate-200/90 bg-white/80 px-5 sm:px-6 text-xs sm:text-sm font-semibold text-slate-700 shadow-2xs backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:bg-white hover:text-blue-700 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-200"
               >
-                Browse Room Collections
+                <span>Browse Room Collections</span>
               </Link>
             </div>
 
-            {/* Hero Trust Information (Subtle, integrated 4-pillar grid) */}
-            <div className="mt-8 grid grid-cols-2 gap-2.5 sm:gap-3 border-t border-slate-100 pt-6">
-              <div className="flex items-center gap-2 text-xs font-medium text-slate-700">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600 font-bold text-[11px]">✓</span>
-                <span>Zero deposit on 6+ mo</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs font-medium text-slate-700">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600 font-bold text-[11px]">✓</span>
-                <span>Free 48h delivery & setup</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs font-medium text-slate-700">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600 font-bold text-[11px]">✓</span>
-                <span>100% maintenance covered</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs font-medium text-slate-700">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600 font-bold text-[11px]">✓</span>
-                <span>12 major cities supported</span>
-              </div>
-            </div>
+            {/* Small Trust Line */}
+            <p className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs font-semibold text-slate-500">
+              <span>900+ curated products</span>
+              <span className="text-slate-300">•</span>
+              <span>12 cities</span>
+              <span className="text-slate-300">•</span>
+              <span>Flexible 1–12 month plans</span>
+            </p>
           </div>
 
-          {/* Right Column: Hero Editorial Visual */}
-          <div className="relative lg:col-span-5 h-full">
-            <div className="relative h-full min-h-[300px] sm:min-h-[380px] lg:min-h-[440px] overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-100 shadow-sm">
-              <ProductImage
+          {/* RIGHT ~50%: ONE LARGE Premium Lifestyle Visual & 3 Balanced Floating Glass Cards */}
+          <div className="relative flex items-center justify-center w-full py-2 sm:py-3 md:py-4">
+            {/* Soft Blue Radial Glow & Subtle Lavender Glow Behind Image */}
+            <div className="pointer-events-none absolute -inset-2 sm:-inset-3 rounded-[36px] bg-gradient-to-tr from-blue-400/20 via-indigo-300/15 to-purple-300/15 blur-xl -z-10 animate-pulse-glow" />
+
+            {/* Large Lifestyle Image Shell (420-490px tall on desktop, rounded 28-32px, pristine & uncluttered) */}
+            <div className="relative h-[300px] sm:h-[360px] md:h-[420px] lg:h-[460px] xl:h-[490px] w-full overflow-hidden rounded-[28px] sm:rounded-[32px] border border-slate-200/85 bg-slate-100 shadow-xl shadow-slate-900/8">
+              <img
                 src={HERO_IMAGE}
-                alt="Bright designer living space furnished with RentEase rental collection"
-                className="h-full w-full min-h-[300px] sm:min-h-[380px] lg:min-h-[440px]"
-                imageClassName="object-cover h-full w-full"
-                priority
+                alt="Modern furnished living room with contemporary sofa and curated RentEase furniture"
+                className="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-105 animate-hero-image"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=85';
+                }}
               />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/75 via-slate-950/25 to-transparent p-4 sm:p-5">
-                <p className="text-[11px] font-semibold text-slate-300">Curated Designer Living</p>
-                <p className="text-xs sm:text-sm font-bold text-white">Monthly rental plans starting at ₹499/mo</p>
+            </div>
+
+            {/* Floating Glass Card 1: 48h Free Delivery (Top Left Edge) */}
+            <div className="animate-float-card-1 absolute top-1 left-2 sm:top-2 sm:left-3 md:-top-1 md:-left-2 lg:top-3 lg:-left-3 z-20 flex items-center gap-2 sm:gap-2.5 rounded-2xl border border-white/85 bg-white/90 p-2 sm:p-2.5 shadow-lg shadow-slate-900/10 backdrop-blur-md transition-all hover:bg-white">
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-xs">
+                <Truck className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+              </div>
+              <div className="pr-1">
+                <span className="text-xs sm:text-sm font-black tracking-tight text-slate-950 leading-tight block">
+                  48h
+                </span>
+                <span className="text-[10px] sm:text-[11px] font-bold text-slate-600 leading-tight block whitespace-nowrap">
+                  Free Delivery
+                </span>
+              </div>
+            </div>
+
+            {/* Floating Glass Card 2: ₹0 Deposit on 6+ months (Bottom Left Edge) */}
+            <div className="animate-float-card-2 absolute bottom-2 left-2 sm:bottom-3 sm:left-3 md:bottom-2 md:-left-2 lg:bottom-4 lg:-left-3 z-20 flex items-center gap-2 sm:gap-2.5 rounded-2xl border border-white/85 bg-white/90 p-2 sm:p-2.5 shadow-lg shadow-slate-900/10 backdrop-blur-md transition-all hover:bg-white">
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-xs">
+                <ShieldCheck className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+              </div>
+              <div className="pr-1">
+                <span className="text-xs sm:text-sm font-black tracking-tight text-slate-950 leading-tight block">
+                  ₹0
+                </span>
+                <span className="text-[10px] sm:text-[11px] font-bold text-slate-600 leading-tight block whitespace-nowrap">
+                  Deposit on 6+ months
+                </span>
+              </div>
+            </div>
+
+            {/* Floating Glass Card 3: 900+ Curated Rentals (Top Right Edge) */}
+            <div className="animate-float-card-3 absolute top-1 right-2 sm:top-2 sm:right-3 md:-top-1 md:-right-2 lg:top-3 lg:-right-3 z-20 flex items-center gap-2 sm:gap-2.5 rounded-2xl border border-white/85 bg-white/90 p-2 sm:p-2.5 shadow-lg shadow-slate-900/10 backdrop-blur-md transition-all hover:bg-white">
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-xs">
+                <Sparkles className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+              </div>
+              <div className="pr-1">
+                <span className="text-xs sm:text-sm font-black tracking-tight text-slate-950 leading-tight block">
+                  900+
+                </span>
+                <span className="text-[10px] sm:text-[11px] font-bold text-slate-600 leading-tight block whitespace-nowrap">
+                  Curated Rentals
+                </span>
               </div>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Global Interactive Search & Filter Bar */}
-      <form
-        onSubmit={submitSearch}
-        className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm"
-      >
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1.1fr_auto]">
-          {/* Search Input */}
-          <label className="flex items-center gap-3 rounded-xl bg-slate-50/90 px-3.5 py-2.5 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 border border-slate-200/70">
-            <SearchIcon />
-            <input
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              placeholder="What are you looking for? e.g. Sofa, Refrigerator..."
-              className="w-full bg-transparent text-xs font-semibold text-slate-950 outline-none placeholder:font-normal placeholder:text-slate-400"
-            />
-          </label>
-
-          {/* City Dropdown */}
-          <label className="flex items-center rounded-xl bg-slate-50/90 px-3.5 py-2.5 border border-slate-200/70">
-            <span className="mr-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-              City
-            </span>
-            <select
-              value={location}
-              onChange={(event) => setLocation(event.target.value)}
-              className="w-full bg-transparent text-xs font-bold text-slate-800 outline-none"
-            >
-              <option value="all">All 12 Cities</option>
-              <option value="Bengaluru">Bengaluru</option>
-              <option value="Mumbai">Mumbai</option>
-              <option value="Delhi NCR">Delhi NCR</option>
-              <option value="Hyderabad">Hyderabad</option>
-              <option value="Pune">Pune</option>
-              <option value="Chennai">Chennai</option>
-              <option value="Kolkata">Kolkata</option>
-              <option value="Jaipur">Jaipur</option>
-              <option value="Ahmedabad">Ahmedabad</option>
-            </select>
-          </label>
-
-          {/* Category Dropdown */}
-          <label className="flex items-center rounded-xl bg-slate-50/90 px-3.5 py-2.5 border border-slate-200/70">
-            <span className="mr-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-              Type
-            </span>
-            <select
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
-              className="w-full bg-transparent text-xs font-bold text-slate-800 outline-none"
-            >
-              <option value="all">All Categories</option>
-              {CATEGORIES.map((item) => (
-                <option key={item.slug} value={item.title || item.name}>
-                  {item.title || item.name}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          {/* Search Submit Button */}
-          <button
-            type="submit"
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 text-xs font-bold text-white shadow-xs transition duration-150 hover:bg-blue-700 active:scale-[0.99]"
+        {/* Compact Search & Discovery Panel: Positioned cleanly BELOW primary composition */}
+        <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white/95 p-3 sm:p-3.5 shadow-xs backdrop-blur-md">
+          <form
+            onSubmit={submitSearch}
+            className="grid gap-2 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_auto]"
           >
-            <span>Search Rentals</span>
-            <ArrowIcon />
-          </button>
-        </div>
+            <label className="flex items-center gap-2.5 rounded-xl border border-slate-200/80 bg-slate-50/90 px-3 py-2 transition focus-within:border-blue-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100">
+              <Search className="h-4 w-4 shrink-0 text-slate-400" />
+              <input
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Search furniture, appliances..."
+                className="w-full bg-transparent text-xs font-semibold text-slate-900 outline-none placeholder:font-normal placeholder:text-slate-400"
+              />
+            </label>
 
-        {/* Quick Trending Tags */}
-        <div className="mt-2.5 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-2.5 px-1">
-          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-            Trending:
-          </span>
-          {QUICK_TRENDING_SEARCHES.map((tag) => (
-            <button
-              key={tag}
-              type="button"
-              onClick={() => handleQuickTagClick(tag)}
-              className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-600 transition hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-      </form>
-
-      {/* Category Discovery Grid */}
-      <section aria-labelledby="categories-heading">
-        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-blue-600" />
-              <p className="text-xs font-bold uppercase tracking-widest text-blue-600">
-                Explore By Space
-              </p>
-            </div>
-            <h2 id="categories-heading" className="mt-1 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
-              Shop by category
-            </h2>
-          </div>
-          <Link
-            to="/products?tab=categories"
-            className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
-          >
-            <span>See all 8 categories</span>
-            <ArrowIcon />
-          </Link>
-        </div>
-
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {CATEGORIES.map((category) => (
-            <CategoryTile key={category.slug} category={category} />
-          ))}
-        </div>
-      </section>
-
-      {/* Product Shelves & Editorial Interludes */}
-      {HOME_COLLECTIONS.map((collection, index) => (
-        <Fragment key={collection.title}>
-          <CollectionSection collection={collection} index={index} />
-          {index === 1 && <EditorialSection section={editorialSections[0]} />}
-          {index === 4 && <EditorialSection section={editorialSections[1]} reverse />}
-          {index === 6 && <EditorialSection section={editorialSections[2]} />}
-        </Fragment>
-      ))}
-
-      {/* How RentEase Works (4 Steps) */}
-      <section id="how-it-works" className="mt-20 scroll-mt-24 rounded-[2.5rem] bg-slate-950 px-6 py-12 text-white sm:px-10 lg:px-14 shadow-xl">
-        <div className="max-w-2xl">
-          <Badge variant="dark" size="sm" className="bg-white/10 text-cyan-200 border-white/20">
-            How RentEase Works
-          </Badge>
-          <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
-            The easiest part of settling in.
-          </h2>
-          <p className="mt-3 text-sm leading-7 text-slate-300 sm:text-base">
-            Everything is engineered to give you flexibility, pristine quality, and zero long-term commitment.
-          </p>
-        </div>
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step) => (
-            <div key={step.number} className="rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur-xs">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-400 text-sm font-black text-slate-950">
-                {step.number}
+            <label className="flex items-center rounded-xl border border-slate-200/80 bg-slate-50/90 px-3 py-2 focus-within:border-blue-400 focus-within:bg-white">
+              <span className="mr-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                City
               </span>
-              <h3 className="mt-5 text-base font-bold text-white">{step.title}</h3>
-              <p className="mt-2 text-xs leading-6 text-slate-300">{step.description}</p>
-            </div>
-          ))}
+              <select
+                value={location}
+                onChange={(event) => setLocation(event.target.value)}
+                className="w-full bg-transparent text-xs font-bold text-slate-800 outline-none truncate"
+              >
+                <option value="all">All 12 Cities</option>
+                {SUPPORTED_CITIES.map((c) => (
+                  <option key={c.name} value={c.name}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="flex items-center rounded-xl border border-slate-200/80 bg-slate-50/90 px-3 py-2 focus-within:border-blue-400 focus-within:bg-white">
+              <span className="mr-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                Type
+              </span>
+              <select
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+                className="w-full bg-transparent text-xs font-bold text-slate-800 outline-none truncate"
+              >
+                <option value="all">All Rooms</option>
+                {CATEGORIES.map((item) => (
+                  <option key={item.slug} value={item.title || item.name}>
+                    {item.title || item.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <button
+              type="submit"
+              className="inline-flex h-9 sm:h-auto items-center justify-center gap-1.5 rounded-xl bg-blue-600 px-5 text-xs font-bold text-white shadow-xs transition duration-150 hover:bg-blue-700 active:scale-[0.98]"
+            >
+              <span>Search</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </form>
+
+          {/* Quick Trending Tags */}
+          <div className="mt-2.5 flex flex-wrap items-center gap-1.5 border-t border-slate-100 pt-2 px-0.5">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Trending:
+            </span>
+            {QUICK_TRENDING_SEARCHES.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => handleQuickTagClick(tag)}
+                className="rounded-md border border-slate-200/70 bg-slate-50/80 px-2 py-0.5 text-[11px] font-medium text-slate-600 transition hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 active:scale-95"
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Why RentEase / Value Props */}
-      <section className="mt-20" aria-labelledby="benefits-heading">
+      {/* 2. UPGRADED BENEFITS: 4 ELEGANT CARDS */}
+      <section aria-labelledby="benefits-heading">
         <div className="max-w-2xl">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-blue-600" />
@@ -655,35 +645,276 @@ export default function Home() {
             More living. Zero friction.
           </h2>
           <p className="mt-2 text-sm text-slate-500">
-            Enjoy premium furniture and top appliances without spending capital or worrying about resale.
+            Enjoy curated designer furniture and certified energy-efficient appliances with total peace of mind.
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.map((benefit, index) => (
-            <Card
-              key={benefit.title}
-              padding="md"
-              shadow="sm"
-              hover
-              className="border border-slate-200/80 bg-white"
-            >
-              <div className="flex items-center justify-between">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-xs font-bold text-blue-600">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <Badge variant="primary" size="xs">
-                  {benefit.tag}
-                </Badge>
-              </div>
-              <h3 className="mt-4 text-base font-bold text-slate-950">{benefit.title}</h3>
-              <p className="mt-2 text-xs leading-6 text-slate-500">{benefit.description}</p>
-            </Card>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {benefits.map((b) => {
+            const Icon = b.icon;
+            return (
+              <Card
+                key={b.title}
+                padding="md"
+                shadow="sm"
+                hover
+                className="group border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-900/5 rounded-2xl"
+              >
+                <div className="flex items-center justify-between">
+                  <div className={`flex h-11 w-11 items-center justify-center rounded-xl border ${b.color} transition-transform duration-300 group-hover:scale-110 shadow-2xs`}>
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <Badge variant="primary" size="xs" className="font-bold">
+                    {b.tag}
+                  </Badge>
+                </div>
+                <h3 className="mt-4 text-base font-bold text-slate-950 group-hover:text-blue-600 transition-colors">
+                  {b.title}
+                </h3>
+                <p className="mt-2 text-xs leading-6 text-slate-500">
+                  {b.description}
+                </p>
+              </Card>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 3. UPGRADED IMAGE-BASED CATEGORY DISCOVERY GRID */}
+      <section aria-labelledby="categories-heading">
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-blue-600" />
+              <p className="text-xs font-bold uppercase tracking-widest text-blue-600">
+                Explore By Space
+              </p>
+            </div>
+            <h2 id="categories-heading" className="mt-1 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
+              Shop by room & category
+            </h2>
+            <p className="mt-1 text-xs text-slate-500 sm:text-sm">
+              Explore 900+ curated items designed for comfortable everyday living.
+            </p>
+          </div>
+          <Link
+            to="/products?tab=categories"
+            className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 group"
+          >
+            <span>See all 8 room categories</span>
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+          </Link>
+        </div>
+
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {CATEGORIES.map((cat) => (
+            <CategoryTile key={cat.slug} category={cat} />
           ))}
         </div>
       </section>
 
-      {/* Verified Renter Testimonials */}
+      {/* 4. PRODUCT SHELVES & EDITORIAL INTERLUDES */}
+      {HOME_COLLECTIONS.map((collection, index) => (
+        <Fragment key={collection.title}>
+          <CollectionSection collection={collection} />
+          {index === 1 && <EditorialSection section={editorialSections[0]} />}
+          {index === 4 && <EditorialSection section={editorialSections[1]} reverse />}
+          {index === 6 && <EditorialSection section={editorialSections[2]} />}
+        </Fragment>
+      ))}
+
+      {/* 5. UPGRADED HOW IT WORKS (4 STEPS VISUAL SECTION) */}
+      <section id="how-it-works" className="mt-20 scroll-mt-24 rounded-[2.5rem] bg-slate-950 px-6 py-12 text-white sm:px-10 lg:px-14 shadow-2xl relative overflow-hidden border border-slate-800">
+        {/* Ambient background glow */}
+        <div className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-blue-600/15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-indigo-600/15 blur-3xl" />
+
+        <div className="relative z-10 max-w-2xl">
+          <Badge variant="dark" size="sm" className="bg-white/10 text-blue-200 border-white/20 font-bold">
+            How RentEase Works
+          </Badge>
+          <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+            The easiest part of settling into your new home.
+          </h2>
+          <p className="mt-3 text-sm leading-7 text-slate-300 sm:text-base">
+            Everything is engineered to give you complete flexibility, pristine quality, and zero long-term commitment.
+          </p>
+        </div>
+
+        <div className="relative z-10 mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step) => {
+            const StepIcon = step.icon;
+            return (
+              <div
+                key={step.number}
+                className="group relative rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-400/40 hover:bg-white/10 hover:-translate-y-1"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-sm font-black text-white shadow-md shadow-blue-600/30">
+                    {step.number}
+                  </span>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-blue-300">
+                    <StepIcon className="h-4 w-4" />
+                  </div>
+                </div>
+                <h3 className="mt-5 text-base font-bold text-white transition-colors group-hover:text-blue-200">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-xs leading-6 text-slate-300">
+                  {step.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 6. UPGRADED VALUE PROPOSITION: SPLIT SECTION */}
+      <section className="mt-20 overflow-hidden rounded-[2.5rem] border border-slate-200/90 bg-gradient-to-br from-white via-slate-50 to-blue-50/30 shadow-md">
+        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12 p-6 sm:p-10 lg:p-14">
+          {/* Left Column: Visual with Ambient Glow & Floating Badge */}
+          <div className="relative lg:col-span-6 order-2 lg:order-1">
+            <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-blue-500/10 blur-xl -z-10" />
+            <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-100 shadow-lg aspect-[4/3]">
+              <ProductImage
+                src={PRODUCTS.find((p) => p.category === 'Living Room')?.image || HERO_IMAGE}
+                alt="RentEase designer living room setup"
+                className="h-full w-full"
+                imageClassName="object-cover h-full w-full"
+              />
+              <div className="absolute top-4 left-4 rounded-xl bg-slate-950/85 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-md border border-white/10 shadow-md">
+                <span className="flex items-center gap-1.5">
+                  <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
+                  Zero Capital Locked
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Value Propositions */}
+          <div className="lg:col-span-6 order-1 lg:order-2 flex flex-col justify-center">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-blue-600" />
+              <p className="text-xs font-bold uppercase tracking-widest text-blue-600">
+                The RentEase Advantage
+              </p>
+            </div>
+            <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl lg:text-4xl leading-tight">
+              Why purchase when you can live flexibly?
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              Purchasing furniture locks heavy upfront capital, entails moving depreciation, and creates resale friction. RentEase gives you verified designer quality, free assembly, and ongoing care without the commitment.
+            </p>
+
+            <ul className="mt-6 space-y-3">
+              <li className="flex items-start gap-3">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs mt-0.5">
+                  <Check className="h-3 w-3" />
+                </span>
+                <span className="text-xs sm:text-sm font-medium text-slate-700">
+                  Save up to 70% upfront compared to retail purchasing costs.
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs mt-0.5">
+                  <Check className="h-3 w-3" />
+                </span>
+                <span className="text-xs sm:text-sm font-medium text-slate-700">
+                  100% free scheduled maintenance, steam-cleaning tune-ups, and repairs.
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs mt-0.5">
+                  <Check className="h-3 w-3" />
+                </span>
+                <span className="text-xs sm:text-sm font-medium text-slate-700">
+                  Free doorstep relocation support when moving within our 12 service cities.
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs mt-0.5">
+                  <Check className="h-3 w-3" />
+                </span>
+                <span className="text-xs sm:text-sm font-medium text-slate-700">
+                  Zero security deposit on 6+ month plans with instant bank refunds.
+                </span>
+              </li>
+            </ul>
+
+            <div className="mt-8 flex items-center gap-3">
+              <Link
+                to="/products"
+                className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-xs font-bold text-white shadow-xs transition hover:bg-blue-600 hover:shadow-md active:scale-95"
+              >
+                <span>Explore All 900+ Rentals</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. UPGRADED CITIES SECTION (12 Supported Cities) */}
+      <section aria-labelledby="cities-heading" className="mt-20">
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-blue-600" />
+              <p className="text-xs font-bold uppercase tracking-widest text-blue-600">
+                Pan-India Service Network
+              </p>
+            </div>
+            <h2 id="cities-heading" className="mt-1.5 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
+              Delivering across 12 major Indian cities
+            </h2>
+            <p className="mt-1 max-w-xl text-sm text-slate-500">
+              Each city hub operates dedicated logistics vans and certified technicians with guaranteed 48-hour delivery SLAs.
+            </p>
+          </div>
+          <Link
+            to="/products"
+            className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 group"
+          >
+            <span>Browse all cities</span>
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+          </Link>
+        </div>
+
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 sm:gap-4">
+          {SUPPORTED_CITIES.map((c) => (
+            <Link
+              key={c.name}
+              to={`/products?city=${encodeURIComponent(c.name)}`}
+              className="group flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-4 shadow-2xs transition-all duration-200 hover:-translate-y-1 hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5"
+            >
+              <div>
+                <div className="flex items-center justify-between">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <Building2 className="h-4 w-4" />
+                  </div>
+                  <span className="inline-flex items-center gap-1 rounded-md bg-emerald-50 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    48h SLA
+                  </span>
+                </div>
+                <h3 className="mt-3 text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                  {c.name}
+                </h3>
+                <p className="text-[11px] font-medium text-slate-400">
+                  {c.state}
+                </p>
+              </div>
+
+              <div className="mt-3 border-t border-slate-100 pt-2 flex items-center justify-between text-[11px]">
+                <span className="text-slate-500 truncate max-w-[140px]">{c.popular}</span>
+                <span className="text-blue-600 font-bold group-hover:translate-x-0.5 transition-transform">→</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 8. VERIFIED RENTER TESTIMONIALS */}
       <section className="mt-20" aria-labelledby="testimonials-heading">
         <div className="text-center">
           <div className="inline-flex items-center gap-2">
@@ -695,11 +926,14 @@ export default function Home() {
           <h2 id="testimonials-heading" className="mt-1.5 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
             Loved by 10,000+ happy homes across India
           </h2>
+          <p className="mt-2 text-sm text-slate-500">
+            Real experiences from professionals, creators, and families who furnished with RentEase.
+          </p>
         </div>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-3">
           {testimonials.map((item) => (
-            <Card key={item.name} padding="md" shadow="sm" className="border border-slate-200/80 bg-white">
+            <Card key={item.name} padding="md" shadow="sm" className="rounded-2xl border border-slate-200/80 bg-white">
               <div className="flex items-center gap-1 text-amber-400 text-sm">
                 ★★★★★
               </div>
@@ -720,27 +954,52 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bottom Conversion Banner */}
-      <section className="mt-20 overflow-hidden rounded-[2.5rem] bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 px-6 py-12 text-white sm:px-10 sm:py-14 lg:px-14 shadow-xl">
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
-          <div>
-            <Badge variant="glass" size="xs" className="text-slate-950 bg-white/90">
+      {/* 9. UPGRADED FINAL CONVERSION CTA BANNER */}
+      <section className="mt-20 overflow-hidden rounded-[2.5rem] bg-gradient-to-r from-slate-950 via-blue-950 to-indigo-950 px-6 py-12 text-white sm:px-10 sm:py-16 lg:px-14 shadow-2xl relative border border-blue-900/40">
+        <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl" />
+
+        <div className="relative z-10 flex flex-col justify-between gap-8 md:flex-row md:items-center">
+          <div className="max-w-2xl">
+            <Badge variant="glass" size="xs" className="text-slate-950 bg-white/95 font-bold">
               READY WHEN YOU ARE
             </Badge>
-            <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl leading-tight">
               Start your next chapter with RentEase.
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-7 text-blue-100 sm:text-base">
-              Furnish your entire apartment or add that one key work desk in under 5 minutes. Flexible terms, free maintenance, zero hassle.
+              Furnish your entire apartment or rent that one key ergonomic workstation in under 5 minutes. Flexible terms, free 48h delivery, zero deposit, and 100% maintenance.
             </p>
+            <div className="mt-6 flex flex-wrap items-center gap-4 text-xs font-semibold text-blue-200">
+              <span className="flex items-center gap-1.5">
+                <Check className="h-4 w-4 text-emerald-400" />
+                48h Free Delivery
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Check className="h-4 w-4 text-emerald-400" />
+                0₹ Deposit on 6+ mo
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Check className="h-4 w-4 text-emerald-400" />
+                Instant Security Refund
+              </span>
+            </div>
           </div>
-          <Link
-            to="/products"
-            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-xs font-extrabold text-blue-700 shadow-lg transition duration-200 hover:-translate-y-0.5 hover:bg-blue-50 active:translate-y-0"
-          >
-            <span>Explore 900+ Rentals</span>
-            <ArrowIcon />
-          </Link>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+            <Link
+              to="/products"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-6 py-4 text-xs font-extrabold text-blue-700 shadow-xl transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-50 active:translate-y-0"
+            >
+              <span>Explore 900+ Rentals</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              to="/products?tab=categories"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-4 text-xs font-bold text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20"
+            >
+              <span>View Categories</span>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

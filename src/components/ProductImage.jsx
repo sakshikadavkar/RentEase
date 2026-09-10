@@ -30,7 +30,7 @@ export default function ProductImage({
         decoding="async"
         onLoad={() => setLoaded(true)}
         onError={() => {
-          setImageSrc('/hero.png');
+          setImageSrc('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80');
           setLoaded(true);
         }}
         className={`h-full w-full object-cover transition-all duration-500 group-hover:scale-105 ${

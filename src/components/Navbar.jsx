@@ -136,7 +136,7 @@ export default function Navbar() {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const { cartCount, favoriteProducts, user, logout } = useRental();
+  const { cartCount, favoriteProducts, user, logout, isAdmin } = useRental();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -164,40 +164,48 @@ export default function Navbar() {
 
   const getLinkClassName = ({ isActive }) =>
     [
-      'relative rounded-xl px-3.5 py-2 text-sm font-semibold transition-colors duration-150',
+      'relative rounded-xl px-3.5 py-2 text-sm font-semibold transition-all duration-200',
       isActive
-        ? 'text-blue-600 bg-blue-50/70 font-bold'
-        : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/70',
+        ? 'text-blue-600 bg-blue-50/80 shadow-2xs font-bold'
+        : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/80',
     ].join(' ');
 
   const isCategoryActive = location.search.includes('category=') || location.search.includes('tab=categories');
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b transition-all duration-200 ${
+      className={`sticky top-0 z-50 border-b transition-all duration-300 ${
         scrolled
-          ? 'border-slate-200/90 bg-white/95 shadow-xs backdrop-blur-md'
-          : 'border-slate-200/70 bg-white/90 backdrop-blur-md'
+          ? 'border-slate-200/90 bg-white/90 shadow-sm shadow-slate-900/5 backdrop-blur-md'
+          : 'border-slate-200/70 bg-white/80 backdrop-blur-md'
       }`}
     >
       {/* Top Banner Notice */}
-      <div className="hidden border-b border-slate-100 bg-slate-950 px-4 py-1.5 text-center text-xs font-medium text-slate-300 md:block">
+      <div className="hidden border-b border-slate-900/10 bg-slate-950 px-4 py-1.5 text-center text-xs font-medium text-slate-300 md:block">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <span className="flex items-center gap-1.5 text-slate-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
+          <span className="flex items-center gap-2 text-slate-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />
             Zero security deposit on 6+ month plans · Free 48-hour delivery & setup
           </span>
           <div className="flex items-center gap-4 text-[11px] text-slate-400">
             <span>Verified 900+ curated items</span>
             <span>•</span>
             <span className="text-white font-semibold">100% Maintenance Covered</span>
+            <span>•</span>
+            <NavLink
+              to={user && (user.role === 'admin' || user.role === 'technician' || user.role === 'logistics') ? "/admin" : "/admin/login"}
+              className="text-blue-400 hover:text-blue-300 font-semibold transition flex items-center gap-1"
+            >
+              <span>Admin Portal</span>
+              {isAdmin && <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />}
+            </NavLink>
           </div>
         </div>
       </div>
 
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         {/* Brand Logo */}
-        <NavLink to="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-95 focus:outline-none">
+        <NavLink to="/" className="flex items-center gap-2.5 transition-transform duration-200 hover:scale-[1.02] focus:outline-none">
           <LogoMark />
           <div className="leading-tight">
             <span className="text-lg font-black tracking-tight text-slate-950">
@@ -220,7 +228,7 @@ export default function Navbar() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search 900+ furniture & appliances..."
-              className="w-full rounded-xl border border-slate-200 bg-slate-50/90 py-1.5 pl-9 pr-3 text-xs font-medium text-slate-900 placeholder:text-slate-400 transition hover:bg-white hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
+              className="w-full rounded-xl border border-slate-200/90 bg-slate-50/80 py-2 pl-9 pr-3 text-xs font-medium text-slate-900 placeholder:text-slate-400 transition hover:bg-white hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
             />
           </div>
         </form>
@@ -239,10 +247,10 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setCategoriesOpen(!categoriesOpen)}
-              className={`flex items-center gap-1 rounded-xl px-3.5 py-2 text-sm font-semibold transition focus:outline-none ${
+              className={`flex items-center gap-1 rounded-xl px-3.5 py-2 text-sm font-semibold transition-all duration-200 focus:outline-none ${
                 isCategoryActive
-                  ? 'text-blue-600 bg-blue-50/70 font-bold'
-                  : 'text-slate-600 hover:bg-slate-100/70 hover:text-slate-950'
+                  ? 'text-blue-600 bg-blue-50/80 shadow-2xs font-bold'
+                  : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-950'
               }`}
             >
               Categories
@@ -256,7 +264,7 @@ export default function Navbar() {
             </button>
 
             {categoriesOpen && (
-              <div className="absolute left-0 mt-2 grid w-84 grid-cols-2 gap-1.5 rounded-2xl border border-slate-200 bg-white p-3 shadow-xl shadow-slate-200/80 z-50">
+              <div className="absolute left-0 mt-2 grid w-84 grid-cols-2 gap-1.5 rounded-2xl border border-slate-200/90 bg-white/95 p-3 shadow-xl shadow-slate-900/10 backdrop-blur-md z-50 animate-in fade-in duration-150">
                 {CATEGORIES.map((category) => {
                   const title = category.title || category.name;
                   return (
@@ -288,7 +296,7 @@ export default function Navbar() {
 
           <a
             href="/#how-it-works"
-            className="relative rounded-xl px-3.5 py-2 text-sm font-semibold text-slate-600 transition-colors duration-150 hover:text-slate-950 hover:bg-slate-100/70"
+            className="relative rounded-xl px-3.5 py-2 text-sm font-semibold text-slate-600 transition-all duration-200 hover:text-slate-950 hover:bg-slate-100/80"
           >
             How It Works
           </a>
@@ -299,12 +307,14 @@ export default function Navbar() {
           {/* Wishlist Link */}
           <NavLink
             to="/dashboard?tab=wishlist"
-            className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-transparent text-slate-600 transition-colors duration-150 hover:border-slate-200 hover:bg-slate-100 hover:text-slate-950 focus:outline-none"
+            className="group relative flex h-10 w-10 items-center justify-center rounded-xl border border-transparent text-slate-600 transition-all duration-200 hover:border-slate-200 hover:bg-slate-100 hover:text-slate-950 active:scale-95 focus:outline-none"
             aria-label="Wishlist"
           >
-            <HeartIcon />
+            <span className="transition-transform duration-200 group-hover:scale-110">
+              <HeartIcon />
+            </span>
             {favoriteProducts.length > 0 && (
-              <span className="absolute right-1 top-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white shadow-xs">
+              <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-bold text-white shadow-xs transition-transform duration-200 group-hover:scale-110">
                 {favoriteProducts.length}
               </span>
             )}
@@ -313,12 +323,14 @@ export default function Navbar() {
           {/* Cart Link */}
           <NavLink
             to="/cart"
-            className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-transparent text-slate-600 transition-colors duration-150 hover:border-slate-200 hover:bg-slate-100 hover:text-blue-600 focus:outline-none"
+            className="group relative flex h-10 w-10 items-center justify-center rounded-xl border border-transparent text-slate-600 transition-all duration-200 hover:border-slate-200 hover:bg-slate-100 hover:text-blue-600 active:scale-95 focus:outline-none"
             aria-label="View cart"
           >
-            <CartIcon />
+            <span className="transition-transform duration-200 group-hover:scale-110">
+              <CartIcon />
+            </span>
             {cartCount > 0 && (
-              <span className="absolute right-1 top-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-blue-600 px-1 text-[10px] font-bold text-white shadow-xs">
+              <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-blue-600 px-1 text-[10px] font-bold text-white shadow-xs transition-transform duration-200 group-hover:scale-110">
                 {cartCount}
               </span>
             )}
@@ -327,6 +339,15 @@ export default function Navbar() {
           {/* User Account / Auth Buttons */}
           {user ? (
             <div className="hidden items-center gap-2 lg:flex">
+              {isAdmin && (
+                <NavLink
+                  to="/admin"
+                  className="flex items-center gap-1.5 rounded-xl bg-purple-500/10 border border-purple-500/30 px-3 py-1.5 text-xs font-bold text-purple-700 hover:bg-purple-500/20 transition shadow-2xs"
+                >
+                  <span className="h-2 w-2 rounded-full bg-purple-600" />
+                  Admin
+                </NavLink>
+              )}
               <NavLink
                 to="/dashboard"
                 className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs transition hover:border-blue-300 hover:bg-blue-50"
