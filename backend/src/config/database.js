@@ -1,19 +1,38 @@
 import pg from 'pg';
-import { ENV } from './env.js';
+import { ENV, cleanDatabaseUrl } from './env.js';
 
 const { Pool } = pg;
 
 let pool = null;
 
+/**
+ * Cleanly tear down existing pool (e.g. after connection error)
+ */
+export const resetPool = async () => {
+  if (pool) {
+    try {
+      await pool.end();
+    } catch {
+      // Ignore pool teardown errors
+    }
+    pool = null;
+  }
+};
+
 export const getPool = () => {
-  if (!pool && ENV.DATABASE_URL) {
-    const isLocalhost = ENV.DATABASE_URL.includes('localhost') || ENV.DATABASE_URL.includes('127.0.0.1');
-    const isSslRequired = ENV.DATABASE_URL.includes('sslmode=require') || ENV.DATABASE_URL.includes('neon.tech') || !isLocalhost;
+  const dbUrl = cleanDatabaseUrl(process.env.DATABASE_URL || ENV.DATABASE_URL || '');
+  if (!dbUrl) {
+    return null;
+  }
+
+  if (!pool) {
+    const isLocalhost = dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1');
+    const isSslRequired = dbUrl.includes('sslmode=require') || dbUrl.includes('neon.tech') || !isLocalhost;
 
     pool = new Pool({
-      connectionString: ENV.DATABASE_URL,
+      connectionString: dbUrl,
       ssl: isSslRequired ? { rejectUnauthorized: false } : false,
-      max: 20,
+      max: 10,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 10000,
     });
@@ -26,11 +45,46 @@ export const getPool = () => {
 };
 
 export const checkDbConnection = async () => {
-  if (!ENV.DATABASE_URL) {
+  const rawDbUrl = process.env.DATABASE_URL || ENV.DATABASE_URL || '';
+  const dbUrl = cleanDatabaseUrl(rawDbUrl);
+
+  if (!dbUrl) {
     return {
       connected: false,
       status: 'unconfigured',
+      host: null,
       message: 'DATABASE_URL environment variable is not set. Running in fallback mode.',
+    };
+  }
+
+  // Safely extract hostname for diagnostic transparency without exposing credentials
+  let parsedHost;
+  if (/@(\/|$)/.test(dbUrl)) {
+    parsedHost = 'missing_host';
+  } else {
+    try {
+      const u = new URL(dbUrl);
+      parsedHost = u.hostname || 'missing_host';
+    } catch {
+      parsedHost = 'unparseable_url';
+    }
+  }
+
+  if (parsedHost === 'missing_host' || parsedHost === 'unparseable_url') {
+    return {
+      connected: false,
+      status: 'error',
+      host: parsedHost,
+      message: `Invalid DATABASE_URL: Hostname is missing or malformed in connection string. Please check the DATABASE_URL value in Vercel.`,
+    };
+  }
+
+  if (process.env.NODE_ENV === 'production' && (parsedHost === 'localhost' || parsedHost === '127.0.0.1')) {
+    return {
+      connected: false,
+      status: 'error',
+      host: parsedHost,
+      message: `Invalid DATABASE_URL in production: resolved host is '${parsedHost}'. Vercel production requires a remote Neon PostgreSQL connection string.`,
     };
   }
 
@@ -40,6 +94,7 @@ export const checkDbConnection = async () => {
       return {
         connected: false,
         status: 'uninitialized',
+        host: parsedHost,
         message: 'Database pool could not be initialized.',
       };
     }
@@ -50,12 +105,15 @@ export const checkDbConnection = async () => {
       connected: true,
       status: 'healthy',
       database: result.rows[0].db_name,
+      host: parsedHost,
       serverTime: result.rows[0].current_time,
     };
   } catch (error) {
+    await resetPool();
     return {
       connected: false,
       status: 'error',
+      host: parsedHost,
       message: error.message,
     };
   }

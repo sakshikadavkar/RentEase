@@ -17,6 +17,7 @@ export const getHealth = async (req, res, next) => {
           driver: 'pg (PostgreSQL)',
           connected: dbStatus.connected,
           status: dbStatus.status,
+          host: dbStatus.host || null,
           databaseName: dbStatus.database || null,
           details: dbStatus.message || 'Connected successfully',
         },
